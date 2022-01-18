@@ -34,6 +34,14 @@ namespace webapplication.Controllers
         {
             return View();
         }
+        public IActionResult afspraakMaken()
+        {
+            return View();
+        }
+        public IActionResult gegevensVragen()
+        {
+            return View();
+        }
 
         public IActionResult Contact()
         {
