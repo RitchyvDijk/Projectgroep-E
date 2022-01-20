@@ -12,4 +12,9 @@ using Microsoft.EntityFrameworkCore;
         }
 
         public DbSet<PriveChat> PriveChat { get; set; }
+        public DbSet<GroupChat> GroupChats { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Client> Clienten { get; set; }
+
+        
     }
