@@ -1,0 +1,53 @@
+@{
+    ViewData["Title"] = "Een afspraak maken";
+}
+<h1>@ViewData["Title"]</h1>
+
+@* Laat de gebruiker een datum en tijd kiezen *@
+<form action="#" id="afspraakform">
+    <label for="datum">Voer een datum in:</label><br>
+
+    <input type="date" id="datum" name="afpsraak-datum" value="2021-01-16" min="2021-01-16" max="2021-12-31"><br>
+
+    <label for="tijd">Kies een tijdstip:</label><br>
+    <input list="openTijden" name="tijd" id="tijd">
+    <datalist id="openTijden">
+        <option value="8:00">8:00</option>
+        <option value="9:00">9:00</option>
+        <option value="10:00">10:00</option>
+        <option value="11:00">11:00</option>
+        <option value="12:00">12:00</option>
+        <option value="13:00">13:00</option>
+        <option value="14:00">14:00</option>
+        <option value="15:00">15:00</option>
+        <option value="16:00">16:00</option>
+        <option value="17:00">17:00</option>
+    </datalist>
+    <br>
+    <br>
+
+    @* model moet nog geimplementeerd worden. *@
+    <label for="zorgverlener">Kies de zorgverlener door wie je behandelt wilt worden:</label><br>
+    <input list="zorgverleners" name="zorgverlener" id="zorgverlener">
+    <datalist id="zorgverleners">
+        <option value="Peter">Peter</option>
+        <option value="Sacha">Sacha</option>
+        <option value="Nikolette">Nikolette</option>
+        <option value="Viktoria">Viktoria</option>
+    </datalist>
+    <br>
+    <br>
+
+    <input type="submit" value="Submit form" onclick="afspraakGegevens()" form="afspraakform">
+</form>
+
+@* datum en tijd doorsturen naar hulpverlener. *@
+<script>
+    function afspraakGegevens() {
+
+        const gegevendatum = document.getElementById(datum)
+        const gegeventijd = document.getElementById(tijd)
+        Console.log(gegevendatum)
+        Console.log(gegeventijd)
+    }
+</script>

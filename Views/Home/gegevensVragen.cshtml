@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Om je gegevens op te vragen hebben we de volgende gegevens van je nodig:";
+}
+<h1>@ViewData["Title"]</h1>
+<form action="/home/afspraakMaken" id="gegevensForm">
+    <label for="geboortedatum">geboortedatum:</label><br>
+    <input type="date" id="geboortedatum" name="geboortedatum"><br>
+    <label for="BSN">BSN nummer:</label><br>
+    <input type="text" id="BSN" name="BSN"><br><br>
+    @* waar de temp code *@
+    @* <label for="emailGebruiker">Je e-mail adres:</label><br>
+    <input type="text" id="emailGebruiker" name="emailGebruiker"><br> *@
+    <input type="submit" form="gegevensform" id="submitForm">
+
+</form>
+
+@* voor de API *@
