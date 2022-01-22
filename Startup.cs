@@ -5,13 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using webapplication.Areas.Identity.Data;
-
-
 
 namespace webapplication
 {
@@ -33,7 +32,8 @@ namespace webapplication
 
             services.AddDbContext<afspraakDbContext>(options =>
                     options.UseSqlite(Configuration.GetConnectionString("afspraakDbContext")));
-            
+            services.AddDbContext<MyContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("MyContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,8 +69,9 @@ namespace webapplication
             });
 
         }
-        private void createRolesandUsers(webapplicationIdentityDbContext context){
- 
+        private void createRolesandUsers(webapplicationIdentityDbContext context)
+        {
+
         }
 
     }

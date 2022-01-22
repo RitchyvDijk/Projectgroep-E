@@ -3,37 +3,52 @@
 @{
     ViewData["Title"] = "Meld je aan voor een intake gesprek";
 }
-<h1>@ViewData["Title"]</h1>
 
-<body>
+<style>
+    .jumbotron {
+        height: 50vh;
+    }
 
-    <form action="/home/gegevensVragen" method="POST" id="intakeForm">
-        <label for="voornaam">voornaam:</label><br>
-        <input type="text" id="voornaam" name="voornaam"><br>
-        <label for="achternaam">achternaam:</label><br>
-        <input type="text" id="achternaam" name="achternaam"><br>
-        <input type="radio" id="jongerDan16" name="jongerDan16" value="jonger dan 16" <input type="submit"
-            value="Submit">
-        <label for="jonger dan 16">Ik ben jonger dan 16 jaar</label>
-        <input type="radio" id="ouderDan16" name="ouderDan16" value="ouderDan16" <input type="submit" value="Submit">
-        <label for="ouderDan16">Ik ben 16 jaar of ouder</label> <br>
+    .jumbotron::before {
+        background-color: #759337;
+    }
+</style>
 
-        <label for="ouderNaam">Naam van ouder/voogd, *Indien je jonger bent dan 16, anders leeg laten.</label><br>
-        <input type="text" id="ouderNaam" name="ouderNaam"><br>
-        <label for="ouderEmail">Email van ouder/voogd</label><br>
-        <input type="text" id="ouderEmail" name="ouderEmail"><br>
-    </form>
-    @* probleemInfo wordt niet opgeslagen 
-    <label for="probleemInfo">Beschrijf hier welke problemen je ervaar en waar je hulp voor nodig hebt.</label><br>
-    <textarea rows="4" cols="50" name="probleemInfo" form="usrform"></textarea><br> *@
-    <label for="toestemming">Als ouder/voogd geef ik toestemming om mijn kind te laten aanmelden</label>
-    <input type="checkbox" id="toestemming"> <br>
-    <label for="submitForm">Klik hier om je ingevulde formulier in te dienen. </label> <br>
-    <input type="submit" form="intakeForm" id="submitForm">
+<partial name="_Jumbotron"></partial>
+<div class="container-fluid position-relative px-0" style="top: -5rem;">
+    <div class="bg-light shadow-lg mx-sm-5 px-5 pb-5">
+        <div class="col-12 text-center">
+            <h3 class="display-5 py-4">Aanmelden</h3>
+            <p class="text-muted">Meld je hier aan voor een intake gesprek.</p>
+        </div>
+        <section id="content" class="d-flex justigy-content-center">
+            <form action="">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="voornaam">voornaam:</label>
+                        <input type="text" class="form-control" id="voornaam" name="voornaam">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="achternaam">achternaam:</label>
+                        <input type="text" class="form-control" id="achternaam" name="achternaam">
+                    </div>
+                </div>
+            </form>
 
-</body>
+            @* probleemInfo wordt niet opgeslagen
+                <label for="probleemInfo">Beschrijf hier welke problemen je ervaar en waar je hulp voor nodig
+                hebt.</label><br>
+                <textarea rows="4" cols="50" name="probleemInfo" form="usrform"></textarea><br> *@
+            @* <label for="toestemming">Als ouder/voogd geef ik toestemming om mijn kind te laten aanmelden</label>
+                <input type="checkbox" id="toestemming"> <br>
+                <label for="submitForm">Klik hier om je ingevulde formulier in te dienen. </label> <br>
+                <input type="submit" form="intakeForm" id="submitForm"> *@
+        </section>
+    </div>
+</div>
+
 
 @* Vul minimaal BSN en geboortedatum en open veld voor probleem beschrijving, indien jonger dan 18, gegevens van ouders,
     client kan dan ook zorgverlener kiezen, maakt ook gelijk intake afspraak, op basis van beschikbaarheid van de
     hulpverlener *@
-</html>
+>>>>>>> dev
