@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace webapplication.Migrations
+namespace webapplication.Migrations.webapplicationIdentityDb
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialCreateLogin : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
