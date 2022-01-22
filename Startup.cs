@@ -12,8 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using webapplication.Areas.Identity.Data;
 
-
-
 namespace webapplication
 {
     public class Startup
@@ -30,18 +28,10 @@ namespace webapplication
         {
             services.AddControllersWithViews();
 
-            services.AddRazorPages();
-            // services.AddDbContext<webapplicationIdentityDbContext>(options =>  
-            //     options.UseSqlServer(  
-            //         Configuration.GetConnectionString("DefaultConnection")));  
-            // services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)  
-            //      .AddDefaultUI()  
-            //      .AddEntityFrameworkStores<webapplicationIdentityDbContext>()  
-            //      .AddDefaultTokenProviders();  
-            // services.AddControllersWithViews();  
-            // services.AddRazorPages();  
-            //staat al in de identityhostingstartup
+            services.AddDbContext<MyContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("MyContext")));
 
+            services.AddRazorPages();
 
         }
 
@@ -78,8 +68,9 @@ namespace webapplication
             });
 
         }
-        private void createRolesandUsers(webapplicationIdentityDbContext context){
- 
+        private void createRolesandUsers(webapplicationIdentityDbContext context)
+        {
+
         }
 
     }

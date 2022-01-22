@@ -10,57 +10,9 @@
 </head>
 
 <body class="text-dark">
-    <header>
-        <a href="#content" id="skipContent" class="sr-only sr-only-focusable">Skip naar content</a>
+    <partial name="_NavPartial"></partial>
 
-        <nav class="mx-sm-5 navbar navbar-expand-lg navbar-light bg-light fixed-top shadow"
-            aria-label="Eleventh navbar example">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">ZMDH</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarsExample09">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home"
-                                asp-action="Team">Hulpverleners</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home"
-                                asp-action="Contact">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home"
-                                asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Role</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav navbar-right ml-auto w-100 justify-content-end">
-                        <li class="nav-item">
-                            <a class="btn btn-outline-primary mx-1" href="#" role="button">Inloggen</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-primary mx-1" href="#" role="button">Aanmelden</a>
-                        </li>
-                        <partial name="_LoginPartial" />
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-    </header>
-
-    <main role="main" id="content">
-        <partial name="../_Jumbotron"></partial>
+    <main role="main">
         @RenderBody()
     </main>
 
@@ -70,7 +22,8 @@
                 <h3>Meld je aan voor een intake gesprek</h3>
             </div>
             <div>
-                <a class="btn btn-primary btn-lg mx-1" href="home/intakeVragen" role="button">Aanmelden</a>
+                <a class="btn btn-primary btn-lg mx-1" id="register" asp-area="Identity" asp-page="home/intakeVragen"
+                    role="button">Aanmelden</a>
             </div>
         </section>
         <section>
