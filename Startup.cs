@@ -8,9 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using webapplication.Areas.Identity.Data;
-
-
 
 namespace webapplication
 {
@@ -28,9 +27,10 @@ namespace webapplication
         {
             services.AddControllersWithViews();
 
+            services.AddDbContext<MyContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("MyContext")));
+
             services.AddRazorPages();
-
-
 
         }
 
