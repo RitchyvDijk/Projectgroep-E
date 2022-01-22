@@ -1,0 +1,111 @@
+@{
+    Layout = "";
+}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/dbc03a5c59.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<style>
+    .page-content {
+        width: calc(100% - 14rem);
+        margin-left: 14rem;
+        transition: all .4s;
+    }
+
+    #content.active {
+        width: 100%;
+        margin: 0;
+    }
+
+    @@media (max-width: 768px) {
+        #content {
+            width: 100%;
+            margin: 0;
+        }
+
+        #content.active {
+            margin-left: 14rem;
+            width: calc(100% - 14rem);
+        }
+    }
+
+    .card {
+        border: none;
+    }
+</style>
+
+<body>
+    <partial name="_SidebarM"></partial>
+
+    <div class="page-content px-5 py-3" id="content">
+        <div class="container-fluid m-4">
+            <div class="row">
+                <div class="col-lg-6 mb-3">
+                    <div class="card card-margin">
+                        <div class="card-header bg-primary pb-0">
+                            <h5 class="card-title text-white">Meldingen</h5>
+                        </div>
+                        <div class="card-body pt-0">
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
+                                voluptatem vitae doloremque a similique ipsa officiis assumenda architecto nisi sit
+                                dolorem, necessitatibus aspernatur debitis autem tempora expedita inventore ratione
+                                exercitationem?</p>
+                            <a href="#" class="btn btn-primary">Alle meldingen</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <div class="card card-margin">
+                        <div class="card-header bg-primary pb-0">
+                            <h5 class="card-title text-white">Afspraken</h5>
+                        </div>
+                        <div class="card-body pt-0">
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
+                                elit. Quod
+                                voluptatem vitae doloremque a similique ipsa officiis assumenda architecto nisi sit
+                                dolorem, necessitatibus aspernatur debitis autem tempora expedita inventore ratione
+                                exercitationem?</p>
+                            <a href="#" class="btn btn-primary">Alle gebruikers</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <div class="card card-margin">
+                        <div class="card-header bg-primary pb-0">
+                            <h5 class="card-title text-white">Berichten</h5>
+                        </div>
+                        <div class="card-body pt-0">
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
+                                voluptatem vitae doloremque a similique ipsa officiis assumenda architecto nisi sit
+                                dolorem, necessitatibus aspernatur debitis autem tempora expedita inventore ratione
+                                exercitationem?</p>
+                            <a href="#" class="btn btn-primary">Alle berichten</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        $(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content, #sidebarCollapse, i').toggleClass('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

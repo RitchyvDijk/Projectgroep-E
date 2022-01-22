@@ -3,7 +3,6 @@ for details on configuring this project to bundle and minify static web assets. 
 
 a.navbar-brand {
     white-space: normal;
-    text-align: center;
     word-break: break-all;
 }
 
@@ -76,4 +75,51 @@ footer {
     background-color: darkslategrey;
     color: white;
     /* Vertically center the text there */
+}
+
+
+/* Sidebar styles
+-------------------------------------------------- */
+
+.vertical-nav {
+    min-width: 17rem;
+    width: 17rem;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, .1);
+    transition: all .4s;
+}
+
+#sidebar.active {
+    margin-left: -14rem;
+}
+
+#sidebarCollapse {
+    font-size: 1.25rem;
+}
+
+#sidebarCollapse.active,
+i:not(.fa-bars).active {
+    position: relative;
+    left: 14rem;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -14rem;
+    }
+    #sidebarCollapse,
+    i:not(.fa-bars) {
+        position: relative;
+        left: 14rem;
+    }
+    #sidebarCollapse.active,
+    i.active:not(.fa-bars) {
+        position: static;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
 }
