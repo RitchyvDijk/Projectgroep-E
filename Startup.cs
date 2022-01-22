@@ -28,11 +28,12 @@ namespace webapplication
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<MyContext>(options =>
-                    options.UseSqlite(Configuration.GetConnectionString("MyContext")));
-
             services.AddRazorPages();
 
+            services.AddDbContext<afspraakDbContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("afspraakDbContext")));
+            services.AddDbContext<MyContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("MyContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
