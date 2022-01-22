@@ -16,6 +16,7 @@ public class RoleController : Controller
     [Authorize(Policy = "readpolicy")]
     public IActionResult Index()
     {
+        
         var roles = roleManager.Roles.ToList();
         return View(roles);
     }
