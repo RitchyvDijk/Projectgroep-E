@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using webapplication.Areas.Identity.Data;
 
 namespace webapplication
 {
@@ -28,6 +29,8 @@ namespace webapplication
 
             services.AddDbContext<MyContext>(options =>
                     options.UseSqlite(Configuration.GetConnectionString("MyContext")));
+
+            services.AddRazorPages();
 
         }
 
@@ -49,14 +52,24 @@ namespace webapplication
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            // app.MapRazorPages();
 
             app.UseEndpoints(endpoints =>
             {
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
+
         }
+        private void createRolesandUsers(webapplicationIdentityDbContext context){
+ 
+        }
+
     }
 }

@@ -2,7 +2,101 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .jumbotron {
+        height: 100vh;
+    }
+
+    .jumbotron::before {
+        background-color: #4abdac;
+        background: url(../img/heroimg3.jpeg) center no-repeat;
+        background-size: cover;
+        filter: brightness(60%);
+    }
+</style>
+
+<partial name="_Jumbotron"></partial>
+<div id="content" class="container-fluid position-relative px-0" style="top: -5rem;">
+    <div class="bg-light shadow-lg mx-sm-5 px-5 pb-5">
+
+        <!-- About Begin-->
+        <section id="about" class="row mb-5">
+            <h3 class="col-12 display-5 text-center py-4">Wat doen wij?</h3>
+            <div class="col-lg-6 col-sm-12 text-center">
+                <img class="img-fluid" src="https://via.placeholder.com/350x150">
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus saepe quis
+                quibusdam necessitatibus qui blanditiis quidem assumenda, nisi inventore! Officiis suscipit harum
+                blanditiis assumenda dolores dolorum tempora ex quos laudantium!
+            </div>
+        </section>
+        <!-- About End-->
+
+        <!-- Vision Begin-->
+        <section id="vision" class="row my-5">
+            <h3 class="col-12 display-5 text-center py-4">Hoe wij helpen</h3>
+            <div class="col-lg-6 col-sm-12">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus saepe quis
+                quibusdam necessitatibus qui blanditiis quidem assumenda, nisi inventore! Officiis suscipit harum
+                blanditiis assumenda dolores dolorum tempora ex quos laudantium!
+            </div>
+            <div class="col-lg-6 col-sm-12 text-center">
+                <img class="img-fluid" src="https://via.placeholder.com/350x150">
+            </div>
+        </section>
+        <!-- Vision End-->
+
+        <!-- Team Begin-->
+        <section id="team" class="row my-5">
+            <h3 class="col-12 display-5 text-center py-4">Onze hulpverleners</h3>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-4 my-3">
+                        <div class="card text-center">
+                            <img class="rounded-circle img-responsive mx-auto my-3" src="https://via.placeholder.com/200x200" alt="">
+                            <div class="card-body">
+                                <h4 class="card-title">Hulpverlener naam</h4>
+                                <h5 class="card-subtitle mb-3 text-muted">Specialisatie</h5>
+                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
+                                    nulla
+                                    sint unde dolore culpa, nam ad officiis deleniti dolores aliquam iure harum dicta!
+                                </p>
+                                <a class="btn btn-primary mx-1" href="#" role="button">Lees meer<span class="sr-only"> over Hulpverlener 1</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4 my-3">
+                        <div class="card text-center">
+                            <img class="rounded-circle img-responsive mx-auto my-3" src="https://via.placeholder.com/200x200" alt="">
+                            <div class="card-body">
+                                <h4 class="card-title">Hulpverlener naam</h4>
+                                <h5 class="card-subtitle mb-3 text-muted">Specialisatie</h5>
+                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
+                                    nulla
+                                    sint unde dolore culpa, nam ad officiis deleniti dolores aliquam iure harum dicta!
+                                </p>
+                                <a class="btn btn-primary mx-1" href="#" role="button">Lees meer<span class="sr-only"> over Hulpverlener 2</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-4 my-3">
+                        <div class="card text-center">
+                            <img class="rounded-circle img-responsive mx-auto my-3" src="https://via.placeholder.com/200x200" alt="">
+                            <div class="card-body">
+                                <h4 class="card-title">Hulpverlener naam</h4>
+                                <h5 class="card-subtitle mb-3 text-muted">Specialisatie</h5>
+                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
+                                    nulla sint unde dolore culpa, nam ad officiis deleniti dolores aliquam iure harum
+                                    dicta!</p>
+                                <a class="btn btn-primary mx-1" href="#" role="button">Lees meer<span class="sr-only"> over Hulpverlener 3</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Team End-->
+
+    </div>
 </div>

@@ -1,0 +1,42 @@
+<nav class="vertical-nav bg-white" id="sidebar">
+    <div class="d-flex align-items-center">
+        <button class="btn navbar-toggle-humburger-icon navbar-vertical-toggle" aria-label="Open/ Sluit navigatie"
+            id="sidebarCollapse"><span class="navbar-toggle-icon"><i class="fas fa-bars mr-2"></i></span></button>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand text-dark">ZMDH</a>
+    </div>
+
+    <p class="text-gray font-widht-bold text-uppercase px-3 pt-4 pb-2 mb-0">Dashboard</p>
+
+    <ul class="nav flex-column bg-white mb-0">
+        <li class="nav-item">
+            <a href="#" class="nav-link bg-primary text-light font-italic">
+                <i class="fas fa-th-large mr-3 fa-fw"></i>Overzicht
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-dark font-italic">
+                <i class="fas fa-calendar-check mr-3 text-secondary fa-fw"></i>Afspraken
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-dark font-italic">
+                <i class="fas fa-users mr-3 text-secondary fa-fw"></i>Cliënten
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-dark font-italic">
+                <i class="fas fa-comment mr-3 text-secondary fa-fw"></i>Chat
+            </a>
+        </li>
+    </ul>
+    <hr class="divider">
+    <div class="py-4 px-3 mb-4">
+        <div class="media d-flex align-items-center">
+            <span class="mr-3 rounded-circle img-thumbnail shadow-sm">RD</span>
+            <div class="media-body">
+                <h4 class="m-0 h5">Ritchy van Dijk</h4>
+                <p class="font-weight-light text-muted mb-0">Hulpverlener</p>
+            </div>
+        </div>
+    </div>
+</nav>
