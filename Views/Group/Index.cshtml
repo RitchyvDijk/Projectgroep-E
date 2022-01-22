@@ -1,59 +1,70 @@
 @model IEnumerable<Group>
 @{
-	var topics = ViewData["topics"] as List<Group>; 
+	var topics = ViewData["topics"] as List<Group>;
+	Layout = "";
 }
 
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title></title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body class="container-sm">
 	<article class="d-flex justify-content-between">
-		<a class="btn btn-outline-secondary flex-fill d-flex justify-content-center" asp-area="" asp-controller="PriveChat" asp-action="Index">Prive chat</a>&nbsp;
+		<a class="btn btn-outline-secondary flex-fill d-flex justify-content-center" asp-area=""
+			asp-controller="PriveChat" asp-action="Index">Prive chat</a>&nbsp;
 		<section class="btn btn-secondary flex-fill d-flex justify-content-center">zelfhulp groepen</section>
 	</article>
 	<h3 class="flex-fill d-flex justify-content-center">Zelfhulpgroepen</h3>
 	<article class="d-flex justify-content-between" style="height: 60vh; overflow: scroll;">
 		<div class="w-50 border border-secondary  p-2">
 			<h4 class="flex-fill d-flex justify-content-center">Groepen</h4>
-			
-				  <form action="/Group/Index">
-				  <div class="d-flex justify-content-between">
+
+			<form action="/Group/Index">
+				<div class="d-flex justify-content-between">
 					<input class="form-control searchBar" type="text" name="zoek">
 					<input class="btn btn-primary searchBar" type="submit" value="Zoek!">
-					</div>
-				</form>
-			
+				</div>
+			</form>
+
 			<div class="d-flex justify-content-between m-2">
 				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-					Leeftijd
+					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+						data-bs-toggle="dropdown" aria-expanded="false">
+						Leeftijd
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-					<li><a class="dropdown-item" asp-controller="Group" asp-action="Index" asp-route-age="low">&#60;16</a></li>
-					<li><a class="dropdown-item" asp-controller="Group" asp-action="Index" asp-route-age="middle">16-18</a></li>
-					<li><a class="dropdown-item" asp-controller="Group" asp-action="Index" asp-route-age="high">18&#62;</a></li>
+						<li><a class="dropdown-item" asp-controller="Group" asp-action="Index"
+								asp-route-age="low">&#60;16</a></li>
+						<li><a class="dropdown-item" asp-controller="Group" asp-action="Index"
+								asp-route-age="middle">16-18</a></li>
+						<li><a class="dropdown-item" asp-controller="Group" asp-action="Index"
+								asp-route-age="high">18&#62;</a></li>
 					</ul>
 				</div>
 
 				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-					Topic
+					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+						data-bs-toggle="dropdown" aria-expanded="false">
+						Topic
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
 						@foreach (var item in topics)
 						{
-						<li><a class="dropdown-item" asp-controller="Group" asp-action="Index" asp-route-topic="@item.Topic">@item.Topic</a></li>
+							<li><a class="dropdown-item" asp-controller="Group" asp-action="Index"
+								asp-route-topic="@item.Topic">@item.Topic</a></li>
 						}
 					</ul>
 				</div>
 			</div>
 			<div>
-				@foreach(var item in Model) {
-					<a onclick="getGroupChat(@item.Id)"> @item.Titel </a><br/>
+				@foreach (var item in Model)
+				{
+					<a onclick="getGroupChat(@item.Id)"> @item.Titel </a><br />
 				}
 			</div>
 		</div>
@@ -62,8 +73,8 @@
 
 			</div>
 			<section class="d-flex justify-content-between mt-auto">
-					<input class="form-control m-1 chatInput" type="text" name="">
-					<button class="btn btn-success m-1" onclick="createChat()">Verstuur</button>
+				<input class="form-control m-1 chatInput" type="text" name="">
+				<button class="btn btn-success m-1" onclick="createChat()">Verstuur</button>
 			</section>
 		</div>
 	</article>
@@ -76,14 +87,14 @@
 
 			selected = id;
 			fetch("api/GroupChatApi/" + id, {
-           		method: "GET"
-        	}).then(r => {
-            	if(r.status != 200){
-                	throw "Status: " + r.status;
-            	} else {
-                	return r.json();
-          		}
-        	}).then(j => {
+				method: "GET"
+			}).then(r => {
+				if (r.status != 200) {
+					throw "Status: " + r.status;
+				} else {
+					return r.json();
+				}
+			}).then(j => {
 				chat = document.querySelector(".chat");
 				chat.innerHTML = "";
 				for (let i = 0; i < j.length; i++) {
@@ -96,17 +107,17 @@
 
 		function createChat() {
 			var currentdate = new Date();
-			var datetime = "Last Sync: " + currentdate.getDay() + "/" + currentdate.getMonth() 
-			+ "/" + currentdate.getFullYear() + " " 
-			+ currentdate.getHours() + ":" 
-			+ currentdate.getMinutes() + ":" + currentdate.getSeconds();
+			var datetime = "Last Sync: " + currentdate.getDay() + "/" + currentdate.getMonth()
+				+ "/" + currentdate.getFullYear() + " "
+				+ currentdate.getHours() + ":"
+				+ currentdate.getMinutes() + ":" + currentdate.getSeconds();
 			var input = document.querySelector(".chatInput").value;
 			fetch("api/GroupChatApi/", {
 				method: "POST",
-				body: JSON.stringify({"DateTime" : datetime, "Ontvanger" : 2, "Afzender" : 1, "Body" : input, "GroupId" : selected}),
-				headers: {"content-type" : "application/json"}
+				body: JSON.stringify({ "DateTime": datetime, "Ontvanger": 2, "Afzender": 1, "Body": input, "GroupId": selected }),
+				headers: { "content-type": "application/json" }
 			}).then(r => {
-				if(r.status != 201){
+				if (r.status != 201) {
 					throw "Status: " + r.status;
 				} else {
 					return r.json();
@@ -118,8 +129,9 @@
 				chat.appendChild(p);
 				document.querySelector(".chatInput").value = "";
 			}).catch(r => alert("Er is een fout op getreden " + r));
-    	}
+		}
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
