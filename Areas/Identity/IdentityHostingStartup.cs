@@ -31,6 +31,10 @@ namespace webapplication.Areas.Identity
     options.FallbackPolicy = new AuthorizationPolicyBuilder()
         .RequireAuthenticatedUser()
         .Build();
+        options.AddPolicy("readpolicy",  
+                    builder => builder.RequireRole("Admin", "Hulpverlener", "Client", "Moderator"));  
+                options.AddPolicy("writepolicy",  
+                    builder => builder.RequireRole("Admin"));
 });
             });
             
