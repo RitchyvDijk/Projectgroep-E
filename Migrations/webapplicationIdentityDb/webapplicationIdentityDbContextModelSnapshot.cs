@@ -2,17 +2,15 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webapplication.Areas.Identity.Data;
 
-namespace webapplication.Migrations
+namespace webapplication.Migrations.webapplicationIdentityDb
 {
     [DbContext(typeof(webapplicationIdentityDbContext))]
-    [Migration("20220111125942_InitialCreate")]
-    partial class InitialCreate
+    partial class webapplicationIdentityDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
