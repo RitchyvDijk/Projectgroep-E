@@ -1,4 +1,7 @@
+@using Microsoft.AspNetCore.Identity
 @model IEnumerable<Group>
+@inject UserManager<IdentityUser> UserManager
+
 @{
 	var topics = ViewData["topics"] as List<Group>;
 	Layout = "";
@@ -81,10 +84,10 @@
 
 	<script>
 		var selected = 0;
+		var oldSelected = 0;
+		var list = [];
 		function getGroupChat(id) {
-
 			window.history.pushState("", "", '/Group');
-
 			selected = id;
 			fetch("api/GroupChatApi/" + id, {
 				method: "GET"
@@ -114,7 +117,7 @@
 			var input = document.querySelector(".chatInput").value;
 			fetch("api/GroupChatApi/", {
 				method: "POST",
-				body: JSON.stringify({ "DateTime": datetime, "Ontvanger": 2, "Afzender": 1, "Body": input, "GroupId": selected }),
+				body: JSON.stringify({ "DateTime": datetime, "Ontvanger": 2, "Afzender": @UserManager.GetUserId(User), "Body": input, "GroupId": selected }),
 				headers: { "content-type": "application/json" }
 			}).then(r => {
 				if (r.status != 201) {
@@ -130,6 +133,39 @@
 				document.querySelector(".chatInput").value = "";
 			}).catch(r => alert("Er is een fout op getreden " + r));
 		}
+
+		setInterval(function () {
+			if(selected != 0) {
+				if(oldSelected != selected){
+					list = [];
+				}
+				fetch("api/GroupChatApi/" + selected, {
+					method: "GET"
+				}).then(r => {
+					if (r.status != 200) {
+						throw "Status: " + r.status;
+					} else {
+						return r.json();
+					}
+				}).then(j => {
+					if (setup != true) {
+						list = j;
+						setup = true;
+					} else {
+						if (JSON.stringify(list) != JSON.stringify(j)) {
+							list = j;
+							j = j[j.length - 1]
+
+							chat = document.querySelector(".chat");
+							var p = document.createElement("p");
+							p.innerHTML = j.dateTime + ": " + j.body;
+							chat.appendChild(p);
+						}
+
+					}
+				}).catch(r => alert("Er is een fout op getreden " + r));
+			}
+		}, 1000);
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
