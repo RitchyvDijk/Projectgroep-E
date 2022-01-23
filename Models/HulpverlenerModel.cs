@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 public class HulpverlenerModel{
@@ -10,6 +11,6 @@ public class HulpverlenerModel{
 
     //tijden in string formaat van 8:00 tot 17:00
     public string beschikbareTijden {get;set;}
+    //public List<> emailClients {get;set;}
 
-    public string clientNaam {get;set;}
 }
