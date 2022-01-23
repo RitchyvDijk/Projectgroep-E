@@ -4,110 +4,120 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Meld je aan voor een intake gesprek</h1>
+<style>
+    .jumbotron {
+        height: 50vh;
+    }
 
-<h4>Vul de formulier in:</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="voornaam" class="control-label">Voornaam:</label>
-                <input asp-for="voornaam" class="form-control"  />
-                <span asp-validation-for="voornaam" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="achternaam" class="control-label">Achternaam:</label>
-                <input asp-for="achternaam" class="form-control"  />
-                <span asp-validation-for="achternaam" class="text-danger"></span>
-            </div>
-            <p>Ik ben jonger dan 16 (niet als je 16 jaar of ouder bent)<br>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="jongerDan16" />
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="naamOuder" class="control-label">Naam van ouder/voogd
-                </label>
-                <input asp-for="naamOuder" class="form-control" />
-                <span asp-validation-for="naamOuder" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="emailvanOuder" class="control-label">Email van ouder/voogd:*Indien je jonger bent dan
-                </label>
-                <input asp-for="emailvanOuder" class="form-control" />
-                <span asp-validation-for="emailvanOuder" class="text-danger"></span>
-            </div>
+    .jumbotron::before {
+        background-color: #193842;
+    }
+</style>
+<partial name="_Jumbotron"></partial>
+<div class="container-fluid position-relative px-0" style="top: -5rem;">
+    <div class="bg-light shadow-lg mx-sm-5 px-5 pb-5">
+        <div class="col-12 text-center">
+            <h3 class="display-5 py-4">Aanmelden intake gesprek</h3>
+        </div>
+        <section id="about" class="mb-5">
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="voornaam" class="control-label">Voornaam:</label>
+                            <input asp-for="voornaam" class="form-control" required />
+                            <span asp-validation-for="voornaam" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="achternaam" class="control-label">Achternaam:</label>
+                            <input asp-for="achternaam" class="form-control" required />
+                            <span asp-validation-for="achternaam" class="text-danger"></span>
+                        </div>
+                        <p>Ik ben jonger dan 16 (niet als je 16 jaar of ouder bent)<br>
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="jongerDan16" />
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="naamOuder" class="control-label">Naam van ouder/voogd
+                            </label>
+                            <input asp-for="naamOuder" class="form-control" />
+                            <span asp-validation-for="naamOuder" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="emailvanOuder" class="control-label">Email van ouder/voogd:*Indien je jonger
+                                bent dan
+                            </label>
+                            <input asp-for="emailvanOuder" class="form-control" />
+                            <span asp-validation-for="emailvanOuder" class="text-danger"></span>
+                        </div>
 
+                        <div class="form-group">
+                            <label asp-for="emailvanGebruiker" class="control-label">Jouw email:</label>
+                            <input asp-for="emailvanGebruiker" class="form-control" required />
+                            <span asp-validation-for="emailvanGebruiker" class="text-danger"></span>
+                        </div>
 
+                        <h4>Om je gegevens op te vragen hebben we de volgende gegevens van je nodig:</h4>
+                        @* voor de API opvragen ?? *@
+                        <div class="form-group">
+                            <label asp-for="geboorteDatum" class="control-label">Geboortedatum:</label>
+                            <input asp-for="geboorteDatum" class="form-control" required />
+                            <span asp-validation-for="geboorteDatum" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="BSN" class="control-label"></label>
+                            <input asp-for="BSN" class="form-control" required />
+                            <span asp-validation-for="BSN" class="text-danger"></span>
+                        </div>
 
-            <div class="form-group">
-                <label asp-for="emailvanGebruiker" class="control-label">Jouw email:</label>
-                <input asp-for="emailvanGebruiker" class="form-control" />
-                <span asp-validation-for="emailvanGebruiker" class="text-danger"></span>
+                        <<<<<<< HEAD <h4>Tot slot, de datum inplannen</h4>
+                            <div class="form-group">
+                                <label asp-for="gekozenDatum" class="control-label">Voer een datum in:</label>
+                                <input asp-for="gekozenDatum" class="form-control" value="2021-01-16" min="2021-01-16"
+                                    max="2021-12-31" required />
+                                <span asp-validation-for="gekozenDatum" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="gekozenTijd" class="control-label">Kies een tijd</label>
+                                <input asp-for="gekozenTijd" class="form-control" list="openTijden" required />
+                                <span asp-validation-for="gekozenTijd" class="text-danger"></span>
+                                <datalist id="openTijden">
+                                    <option value="8:00">8:00</option>
+                                    <option value="9:00">9:00</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="17:00">17:00</option>
+                                </datalist>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="gekozenHulpverlener" class="control-label">Kies een
+                                    hulpverlener:</label>
+                                <input asp-for="gekozenHulpverlener" class="form-control" list="zorgverleners"
+                                    required />
+                                <span asp-validation-for="gekozenHulpverlener" class="text-danger"></span>
+                                <datalist id="zorgverleners">
+                                    <option value="Peter">Peter</option>
+                                    <option value="Sacha">Sacha</option>
+                                    <option value="Nikolette">Nikolette</option>
+                                    <option value="Viktoria">Viktoria</option>
+                                </datalist>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                    </form>
+                </div>
             </div>
-
-
-            <h4>Om je gegevens op te vragen hebben we de volgende gegevens van je nodig:</h4>
-            @* voor de API opvragen ?? *@
-            <div class="form-group">
-                <label asp-for="geboorteDatum" class="control-label">Geboortedatum:</label>
-                <input asp-for="geboorteDatum" class="form-control" />
-                <span asp-validation-for="geboorteDatum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BSN" class="control-label"></label>
-                <input asp-for="BSN" class="form-control"  />
-                <span asp-validation-for="BSN" class="text-danger"></span>
-            </div>
-
-
-            <h4>Tot slot, de datum inplannen</h4>
-            <div class="form-group">
-                <label asp-for="gekozenDatum" class="control-label">Voer een datum in:</label>
-                <input asp-for="gekozenDatum" class="form-control" value="2021-01-16" min="2022-01-16"
-                    max="2022-12-31" />
-                <span asp-validation-for="gekozenDatum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="gekozenTijd" class="control-label">Kies een tijd</label>
-                <input asp-for="gekozenTijd" class="form-control" list="openTijden" />
-                <span asp-validation-for="gekozenTijd" class="text-danger"></span>
-                <datalist id="openTijden">
-                    <option value="8:00">8:00</option>
-                    <option value="9:00">9:00</option>
-                    <option value="10:00">10:00</option>
-                    <option value="11:00">11:00</option>
-                    <option value="12:00">12:00</option>
-                    <option value="13:00">13:00</option>
-                    <option value="14:00">14:00</option>
-                    <option value="15:00">15:00</option>
-                    <option value="16:00">16:00</option>
-                    <option value="17:00">17:00</option>
-                </datalist>
-            </div>
-            <div class="form-group">
-                <label asp-for="gekozenHulpverlener" class="control-label">Kies een hulpverlener:</label>
-                <input asp-for="gekozenHulpverlener" class="form-control" list="zorgverleners"  />
-                <span asp-validation-for="gekozenHulpverlener" class="text-danger"></span>
-                <datalist id="zorgverleners">
-                    <option value="Peter">Peter</option>
-                    <option value="Sacha">Sacha</option>
-                    <option value="Nikolette">Nikolette</option>
-                    <option value="Viktoria">Viktoria</option>
-                </datalist>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </section>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
