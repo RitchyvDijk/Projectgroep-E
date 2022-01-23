@@ -30,6 +30,7 @@ namespace webapplication.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
         public IActionResult intakeVragen()
         {
             return View();
