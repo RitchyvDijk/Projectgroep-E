@@ -86,6 +86,7 @@
 		var selected = 0;
 		var oldSelected = 0;
 		var list = [];
+		var setup = false;
 		function getGroupChat(id) {
 			window.history.pushState("", "", '/Group');
 			selected = id;
@@ -117,7 +118,7 @@
 			var input = document.querySelector(".chatInput").value;
 			fetch("api/GroupChatApi/", {
 				method: "POST",
-				body: JSON.stringify({ "DateTime": datetime, "Ontvanger": 2, "Afzender": @UserManager.GetUserId(User), "Body": input, "GroupId": selected }),
+				body: JSON.stringify({ "DateTime": datetime, "Ontvanger": "1", "Afzender": "@UserManager.GetUserId(User)", "Body": input, "GroupId": selected }),
 				headers: { "content-type": "application/json" }
 			}).then(r => {
 				if (r.status != 201) {
@@ -130,15 +131,17 @@
 				var p = document.createElement("p");
 				p.innerHTML = j.dateTime + ": " + j.body;
 				chat.appendChild(p);
+				list.push(j);
 				document.querySelector(".chatInput").value = "";
 			}).catch(r => alert("Er is een fout op getreden " + r));
 		}
 
 		setInterval(function () {
 			if(selected != 0) {
-				if(oldSelected != selected){
+				if(oldSelected != selected && list != []){
 					list = [];
 				}
+				oldSelected = selected;
 				fetch("api/GroupChatApi/" + selected, {
 					method: "GET"
 				}).then(r => {

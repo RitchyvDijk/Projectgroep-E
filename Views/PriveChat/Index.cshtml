@@ -57,7 +57,7 @@
 			<section class="chatBox">
 				@foreach (var item in Model)
 				{
-					@if (item.Afzender == int.Parse(@UserManager.GetUserId(User)))
+					@if (item.Afzender == UserManager.GetUserId(User))
 					{
 						<div class="chat-message-left pb-4">
 							<div class="m-2"><i class="fa fa-user"></i></div>
@@ -66,7 +66,7 @@
 							</p>
 						</div>
 					}
-					else if (item.Ontvanger == int.Parse(@UserManager.GetUserId(User)))
+					else if (item.Ontvanger == @UserManager.GetUserId(User))
 					{
 						<div class="chat-message-right pb-4">
 							@item.Body
@@ -93,7 +93,7 @@
 			var input = document.querySelector(".chatInput").value;
 			fetch("api/api/", {
 				method: "POST",
-				body: JSON.stringify({ "DateTime": datetime, "Ontvanger": 1, "Afzender": int.Parse(@UserManager.GetUserId(User)), "Body": input }),
+				body: JSON.stringify({ "DateTime": datetime, "Ontvanger": "f61864df-f3b9-4de5-a8e4-5aa372423dd0", "Afzender": "@UserManager.GetUserId(User)", "Body": input }),
 				headers: { "content-type": "application/json" }
 			}).then(r => {
 				if (r.status != 201) {
@@ -130,7 +130,7 @@
 					if (JSON.stringify(list) != JSON.stringify(j)) {
 						list = j;
 						j = j[j.length - 1]
-						if(j.Ontvanger == int.Parse(@UserManager.GetUserId(User))){
+						if(j.Ontvanger == @UserManager.GetUserId(User)){
 							var headDiv = document.createElement("div");
 							headDiv.classList.add("chat-message-left");
 							headDiv.classList.add("pb-4");
