@@ -134,8 +134,8 @@
 				} else {
 					if (JSON.stringify(list) != JSON.stringify(j)) {
 						list = j;
-						j = j[j.length - 1]
-						if (j.Ontvanger == "@UserManager.GetUserId(User)") {
+						j = j[j.length - 1];
+						if (j.ontvanger == "@UserManager.GetUserId(User)") {
 							var headDiv = document.createElement("div");
 							headDiv.classList.add("chat-message-left");
 							headDiv.classList.add("pb-4");
