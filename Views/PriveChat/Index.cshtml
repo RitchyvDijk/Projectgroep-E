@@ -38,14 +38,15 @@
 		}
 
 		.chatbox {
-			height: 80vh;
+			height: 70vh;
 			overflow: scroll;
 		}
 	</style>
 </head>
 
 <body>
-	<div class="container-sm">
+	<partial name="_NavPartial"></partial>
+	<div class="container-sm" style="position: relative; top: 5rem;">
 		<article class="d-flex justify-content-between">
 			<section class="btn btn-outline-secondary flex-fill d-flex justify-content-center">Prive chat</section>
 			&nbsp;
@@ -134,7 +135,7 @@
 					if (JSON.stringify(list) != JSON.stringify(j)) {
 						list = j;
 						j = j[j.length - 1]
-						if(j.Ontvanger == @UserManager.GetUserId(User)){
+						if (j.Ontvanger == @UserManager.GetUserId(User)) {
 							var headDiv = document.createElement("div");
 							headDiv.classList.add("chat-message-left");
 							headDiv.classList.add("pb-4");

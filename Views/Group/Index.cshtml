@@ -17,70 +17,75 @@
 </head>
 
 <body class="container-sm">
-	<article class="d-flex justify-content-between">
-		<a class="btn btn-outline-secondary flex-fill d-flex justify-content-center" asp-area=""
-			asp-controller="PriveChat" asp-action="Index">Prive chat</a>&nbsp;
-		<section class="btn btn-secondary flex-fill d-flex justify-content-center">zelfhulp groepen</section>
-	</article>
-	<h3 class="flex-fill d-flex justify-content-center">Zelfhulpgroepen</h3>
-	<article class="d-flex justify-content-between" style="height: 60vh; overflow: scroll;">
-		<div class="w-50 border border-secondary  p-2">
-			<h4 class="flex-fill d-flex justify-content-center">Groepen</h4>
+	<partial name="_NavPartial"></partial>
+	<div class="container-sm" style="position: relative; top: 5rem;">
 
-			<form action="/Group/Index">
-				<div class="d-flex justify-content-between">
-					<input class="form-control searchBar" type="text" name="zoek">
-					<input class="btn btn-primary searchBar" type="submit" value="Zoek!">
-				</div>
-			</form>
+		<article class="d-flex justify-content-between">
+			<a class="btn btn-outline-secondary flex-fill d-flex justify-content-center" asp-area=""
+				asp-controller="PriveChat" asp-action="Index">Prive chat</a>&nbsp;
+			<section class="btn btn-secondary flex-fill d-flex justify-content-center">zelfhulp groepen</section>
+		</article>
+		<h3 class="flex-fill d-flex justify-content-center">Zelfhulpgroepen</h3>
+		<article class="d-flex justify-content-between" style="height: 60vh; overflow: scroll;">
+			<div class="w-50 border border-secondary  p-2">
+				<h4 class="flex-fill d-flex justify-content-center">Groepen</h4>
 
-			<div class="d-flex justify-content-between m-2">
-				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-						data-bs-toggle="dropdown" aria-expanded="false">
-						Leeftijd
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-						<li><a class="dropdown-item" asp-controller="Group" asp-action="Index"
-								asp-route-age="low">&#60;16</a></li>
-						<li><a class="dropdown-item" asp-controller="Group" asp-action="Index"
-								asp-route-age="middle">16-18</a></li>
-						<li><a class="dropdown-item" asp-controller="Group" asp-action="Index"
-								asp-route-age="high">18&#62;</a></li>
-					</ul>
-				</div>
+				<form action="/Group/Index">
+					<div class="d-flex justify-content-between">
+						<input class="form-control searchBar" type="text" name="zoek">
+						<input class="btn btn-primary searchBar" type="submit" value="Zoek!">
+					</div>
+				</form>
 
-				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
-						data-bs-toggle="dropdown" aria-expanded="false">
-						Topic
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-						@foreach (var item in topics)
-						{
+				<div class="d-flex justify-content-between m-2">
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+							data-bs-toggle="dropdown" aria-expanded="false">
+							Leeftijd
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 							<li><a class="dropdown-item" asp-controller="Group" asp-action="Index"
-								asp-route-topic="@item.Topic">@item.Topic</a></li>
-						}
-					</ul>
+									asp-route-age="low">&#60;16</a></li>
+							<li><a class="dropdown-item" asp-controller="Group" asp-action="Index"
+									asp-route-age="middle">16-18</a></li>
+							<li><a class="dropdown-item" asp-controller="Group" asp-action="Index"
+									asp-route-age="high">18&#62;</a></li>
+						</ul>
+					</div>
+
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+							data-bs-toggle="dropdown" aria-expanded="false">
+							Topic
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+							@foreach (var item in topics)
+							{
+								<li><a class="dropdown-item" asp-controller="Group" asp-action="Index"
+									asp-route-topic="@item.Topic">@item.Topic</a></li>
+							}
+						</ul>
+					</div>
+				</div>
+				<div>
+					@foreach (var item in Model)
+					{
+						<a onclick="getGroupChat(@item.Id)"> @item.Titel </a><br />
+					}
 				</div>
 			</div>
-			<div>
-				@foreach (var item in Model)
-				{
-					<a onclick="getGroupChat(@item.Id)"> @item.Titel </a><br />
-				}
-			</div>
-		</div>
-		<div class="w-100 border border-secondary p-2" style="height: 100%;">
-			<div class="chat">
+			<div class="w-100 border border-secondary p-2" style="height: 100%;">
+				<div class="chat">
 
+				</div>
+				<section class="d-flex justify-content-between mt-auto">
+					<input class="form-control m-1 chatInput" type="text" name="">
+					<button class="btn btn-success m-1" onclick="createChat()">Verstuur</button>
+				</section>
 			</div>
-			<section class="d-flex justify-content-between mt-auto">
-				<input class="form-control m-1 chatInput" type="text" name="">
-				<button class="btn btn-success m-1" onclick="createChat()">Verstuur</button>
-			</section>
-		</div>
-	</article>
+		</article>
+	</div>
+
 
 	<script>
 		var selected = 0;
@@ -137,8 +142,8 @@
 		}
 
 		setInterval(function () {
-			if(selected != 0) {
-				if(oldSelected != selected && list != []){
+			if (selected != 0) {
+				if (oldSelected != selected && list != []) {
 					list = [];
 				}
 				oldSelected = selected;
