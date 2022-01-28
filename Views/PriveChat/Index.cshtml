@@ -86,7 +86,7 @@
 		var list = [];
 		var setup = false;
 		var ontvang = "f61864df-f3b9-4de5-a8e4-5aa372423dd0";
-			if(@UserManager.GetUserId(User) == "f61864df-f3b9-4de5-a8e4-5aa372423dd0"){
+			if("@UserManager.GetUserId(User)" == "f61864df-f3b9-4de5-a8e4-5aa372423dd0"){
 				ontvang = "f455ac26-e1d6-4449-bb5c-fa88c913b520";
 			}
 		function createChat() {
@@ -135,7 +135,7 @@
 					if (JSON.stringify(list) != JSON.stringify(j)) {
 						list = j;
 						j = j[j.length - 1]
-						if (j.Ontvanger == @UserManager.GetUserId(User)) {
+						if (j.Ontvanger == "@UserManager.GetUserId(User)") {
 							var headDiv = document.createElement("div");
 							headDiv.classList.add("chat-message-left");
 							headDiv.classList.add("pb-4");
@@ -151,7 +151,6 @@
 							document.querySelector(".chatBox").appendChild(headDiv);
 						}
 					}
-
 				}
 			}).catch(r => alert("Er is een fout op getreden " + r));
 		}, 1000);
