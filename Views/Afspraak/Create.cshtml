@@ -14,12 +14,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="voornaam" class="control-label">Voornaam:</label>
-                <input asp-for="voornaam" class="form-control"  />
+                <input asp-for="voornaam" class="form-control" />
                 <span asp-validation-for="voornaam" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="achternaam" class="control-label">Achternaam:</label>
-                <input asp-for="achternaam" class="form-control"  />
+                <input asp-for="achternaam" class="form-control" />
                 <span asp-validation-for="achternaam" class="text-danger"></span>
             </div>
             <p>Ik ben jonger dan 16 (niet als je 16 jaar of ouder bent)<br>
@@ -51,7 +51,7 @@
 
 
             <h4>Om je gegevens op te vragen hebben we de volgende gegevens van je nodig:</h4>
-            @* voor de API opvragen ?? *@
+                @* voor de API opvragen ?? *@
             <div class="form-group">
                 <label asp-for="geboorteDatum" class="control-label">Geboortedatum:</label>
                 <input asp-for="geboorteDatum" class="form-control" />
@@ -59,7 +59,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="BSN" class="control-label"></label>
-                <input asp-for="BSN" class="form-control"  />
+                <input asp-for="BSN" class="form-control" />
                 <span asp-validation-for="BSN" class="text-danger"></span>
             </div>
 
@@ -67,8 +67,11 @@
             <h4>Tot slot, de datum inplannen</h4>
             <div class="form-group">
                 <label asp-for="gekozenDatum" class="control-label">Voer een datum in:</label>
-                <input asp-for="gekozenDatum" class="form-control" value="2021-01-16" min="2022-01-16"
+                <input asp-for="gekozenDatum" class="form-control" value="2022-01-16" min="2022-01-16"
                     max="2022-12-31" />
+                <input asp-for="gekozenDatum" class="form-control" value="2022-01-16" min="2022-01-16" max="2022-12-31"
+                    required />
+
                 <span asp-validation-for="gekozenDatum" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -90,7 +93,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="gekozenHulpverlener" class="control-label">Kies een hulpverlener:</label>
-                <input asp-for="gekozenHulpverlener" class="form-control" list="zorgverleners"  />
+                <input asp-for="gekozenHulpverlener" class="form-control" list="zorgverleners" />
                 <span asp-validation-for="gekozenHulpverlener" class="text-danger"></span>
                 <datalist id="zorgverleners">
                     <option value="Peter">Peter</option>
@@ -100,7 +103,7 @@
                 </datalist>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" onclick="formIngevuld()" />
             </div>
         </form>
     </div>
@@ -113,3 +116,8 @@
 @section Scripts {
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+<script>
+    function formIngevuld() {
+        alert("Bedankt voor het invullen van de formulier, de hulpverlener zal zo snel mogelijk met je contact opnemen!");
+    }
+</script>
