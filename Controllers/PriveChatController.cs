@@ -69,6 +69,9 @@ namespace webapplication.Controllers
             if (User.IsInRole("Client"))
             {
                 ViewData["Client"] = true;
+                var ClientId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var idHulp = _GebruikerContext.Clients.Where(u => u.Id == ClientId).FirstOrDefault().hulpverlener.Id;
+                ViewData["ClientHulpverlener"] = idHulp;
             }
             return View(await _ChatContext.PriveChat.ToListAsync());
         }
