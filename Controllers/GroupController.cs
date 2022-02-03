@@ -20,8 +20,10 @@ namespace webapplication.Controllers
         // GET: PriveChat
         public async Task<IActionResult> Index(string zoek, string topic, string age)
         {
+            if (User.IsInRole("Moderator")){ViewData["Moderator"] = true;}
             ViewData["topics"] = await _context.Groups.ToListAsync();
             if (zoek != null) {
+                ViewData["Zoek"] = zoek;
                 return View(await Zoek(_context.Groups, zoek).ToListAsync());
             }
             if (topic != null) {

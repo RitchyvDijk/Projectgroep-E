@@ -37,32 +37,18 @@ namespace week13.Controllers
 
         // PUT: api/PriveChat/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGroupChats(int id, GroupChat GroupChats)
+        public ActionResult<IEnumerable<GroupChat>> PutGroupChats(int id)
         {
-            if (id != GroupChats.Id)
-            {
-                return BadRequest();
+            var chat1 = _context.GroupChats.Where(p => p.Id == id).SingleOrDefault();
+            chat1.Meld = true;
+            var groupId = chat1.GroupId;
+            _context.SaveChanges();
+            var chat = _context.GroupChats.Where(p => p.GroupId == groupId).ToList();
+            for (int i = 0; i < _context.GroupChats.Where(p => p.GroupId == groupId).Count(); i++){
+                var naam = _dbContext.Users.Where(u => u.Id == chat[i].Afzender).FirstOrDefault();
+                chat[i].DateTime = naam.UserName;
             }
-
-            _context.Entry(GroupChats).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GroupChatsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return chat;
         }
 
         // POST: api/PriveChat
@@ -79,9 +65,9 @@ namespace week13.Controllers
 
         // DELETE: api/PriveChat/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGroupChats(int id)
+        public ActionResult<IEnumerable<GroupChat>> DeleteGroupChats(int id)
         {
-            var GroupChat = await _context.GroupChats.FindAsync(id);
+            GroupChat GroupChat = _context.GroupChats.Where(p => p.Id == id).FirstOrDefault();
 
             if (GroupChat == null)
             {
@@ -90,9 +76,15 @@ namespace week13.Controllers
 
             _context.GroupChats.Remove(GroupChat);
 
-            await _context.SaveChangesAsync();
+            _context.SaveChangesAsync();
 
-            return NoContent();
+            var groupId = GroupChat.GroupId;
+             var chat = _context.GroupChats.Where(p => p.GroupId == groupId).ToList();
+            for (int i = 0; i < _context.GroupChats.Where(p => p.GroupId == groupId).Count(); i++){
+                var naam = _dbContext.Users.Where(u => u.Id == chat[i].Afzender).FirstOrDefault();
+                chat[i].DateTime = naam.UserName;
+            }
+            return chat;
         }
 
         private bool GroupChatsExists(int id)

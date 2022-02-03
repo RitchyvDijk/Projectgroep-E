@@ -2,43 +2,68 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using webapplication.Areas.Identity.Data;
+using webapplication.Models;
 
 namespace webapplication.Controllers
 {
     public class PriveChatController : Controller
     {
         private readonly MyContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly webapplicationIdentityDbContext _dbContext;
 
-        public PriveChatController(MyContext context)
+
+        public PriveChatController(MyContext context, UserManager<IdentityUser> userManager, webapplicationIdentityDbContext dbContext)
         {
             _context = context;
+            _userManager = userManager;
+            _dbContext = dbContext;
         }
 
         // GET: PriveChat
         public async Task<IActionResult> Index()
         {
+            if(User.IsInRole("Hulpverlener")) {
+                var HulpverlenerId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var namen = new List<string>();
+                foreach(var item in await _context.PriveChat.Where(p => p.Afzender.Equals(HulpverlenerId) || p.Ontvanger.Equals(HulpverlenerId)).ToListAsync()) {
+                    if(item.Afzender == HulpverlenerId) {
+                        var naam = _dbContext.Users.Where(u => u.Id == item.Ontvanger).FirstOrDefault().UserName;
+                        namen.Add(naam);
+
+                    } else {
+                        var naam = _dbContext.Users.Where(u => u.Id == item.Afzender).FirstOrDefault().UserName;
+                        namen.Add(naam);
+                    }
+                }
+                namen.Sort();
+                Int32 index = namen.Count - 1;
+                while (index > 0)
+                {
+                    if (namen[index] == namen[index - 1])
+                    {
+                        if (index < namen.Count - 1)
+                            (namen[index], namen[namen.Count - 1]) = (namen[namen.Count - 1], namen[index]);
+                        namen.RemoveAt(namen.Count - 1);
+                        index--;
+                    }
+                    else
+                        index--;
+                }
+                ViewData["HulpverlenerNamen"] = true;
+                ViewBag.HulpverlenerNamen = namen;
+                return View( _context.PriveChat.Where(p => p.Afzender == HulpverlenerId || p.Ontvanger == HulpverlenerId).ToList());
+            }
+            if(User.IsInRole("Client")) {
+                ViewData["Client"] = true;
+            }
             return View(await _context.PriveChat.ToListAsync());
-        }
-
-        // GET: PriveChat/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var priveChat = await _context.PriveChat
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (priveChat == null)
-            {
-                return NotFound();
-            }
-
-            return View(priveChat);
         }
 
         // GET: PriveChat/Create

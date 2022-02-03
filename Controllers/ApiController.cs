@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using webapplication.Areas.Identity.Data;
 
 namespace week13.Controllers
 {
@@ -13,13 +14,22 @@ namespace week13.Controllers
     public class ApiController : ControllerBase
     {
         private readonly MyContext _context;
+        private readonly webapplicationIdentityDbContext _dbContext;
 
-        public ApiController(MyContext context)
+        public ApiController(MyContext context, webapplicationIdentityDbContext dbContext)
         {
             _context = context;
+            _dbContext = dbContext;
         }
         
-        // GET: api/PriveChat
+        [HttpGet("{id}")]
+        public ActionResult<IEnumerable<PriveChat>> GetPriveChat(string id)
+        {
+            var ClientId = _dbContext.Users.Where(u => u.UserName == id).FirstOrDefault().Id;
+            return _context.PriveChat.Where(p => p.Afzender == ClientId || p.Ontvanger == ClientId).ToList();
+        }
+
+         // GET: api/PriveChat
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PriveChat>>> GetPriveChat()
         {
