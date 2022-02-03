@@ -12,13 +12,13 @@ namespace week13.Controllers
     [ApiController]
     public class ApiController : ControllerBase
     {
-        private readonly MyContext _context;
+        private readonly ChatDbContext _context;
 
-        public ApiController(MyContext context)
+        public ApiController(ChatDbContext context)
         {
             _context = context;
         }
-        
+
         // GET: api/PriveChat
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PriveChat>>> GetPriveChat()

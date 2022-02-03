@@ -10,9 +10,9 @@ namespace webapplication.Controllers
 {
     public class PriveChatController : Controller
     {
-        private readonly MyContext _context;
+        private readonly ChatDbContext _context;
 
-        public PriveChatController(MyContext context)
+        public PriveChatController(ChatDbContext context)
         {
             _context = context;
         }

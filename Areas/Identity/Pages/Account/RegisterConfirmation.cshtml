@@ -1,22 +1,42 @@
 @page
 @model RegisterConfirmationModel
 @{
-    ViewData["Title"] = "Register confirmation";
+    ViewData["Title"] = "Email bevestiging";
 }
 
-<h1>@ViewData["Title"]</h1>
-@{
-    if (@Model.DisplayConfirmAccountLink)
-    {
-<p>
-    This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
-    Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
-</p>
+<style>
+    .jumbotron {
+        height: 50vh;
     }
-    else
-    {
-<p>
-        Please check your email to confirm your account.
-</p>
+
+    .jumbotron::before {
+        background-color: #593849;
     }
-}
+</style>
+
+<partial name="_Jumbotron"></partial>
+<div class="container-fluid position-relative px-0" style="top: -5rem;">
+    <div class="bg-light shadow-lg mx-sm-5 px-5 pb-5">
+        <div class="col-12 text-center">
+            <h3 class="display-5 py-4">@ViewData["Title"]</h3>
+
+            @{
+                if (@Model.DisplayConfirmAccountLink)
+                {
+                    <p>
+                        This app does not currently have a real email sender registered, see <a
+                        href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
+                        Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to
+                            confirm your account</a>
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        Please check your email to confirm your account.
+                    </p>
+                }
+            }
+        </div>
+    </div>
+</div>

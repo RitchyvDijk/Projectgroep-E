@@ -10,9 +10,9 @@ namespace webapplication.Controllers
 {
     public class GroupController : Controller
     {
-        private readonly MyContext _context;
+        private readonly ChatDbContext _context;
 
-        public GroupController(MyContext context)
+        public GroupController(ChatDbContext context)
         {
             _context = context;
         }
@@ -21,14 +21,17 @@ namespace webapplication.Controllers
         public async Task<IActionResult> Index(string zoek, string topic, string age)
         {
             ViewData["topics"] = await _context.Groups.ToListAsync();
-            if (zoek != null) {
+            if (zoek != null)
+            {
                 return View(await Zoek(_context.Groups, zoek).ToListAsync());
             }
-            if (topic != null) {
+            if (topic != null)
+            {
                 return View(await Topic(_context.Groups, topic).ToListAsync());
             }
-            if (age != null) {
-               return View(await Age(_context.Groups, age).ToListAsync());
+            if (age != null)
+            {
+                return View(await Age(_context.Groups, age).ToListAsync());
 
             }
             return View(await _context.Groups.ToListAsync());
@@ -46,16 +49,16 @@ namespace webapplication.Controllers
 
         public IQueryable<Group> Age(IQueryable<Group> lijst, string age)
         {
-            switch(age)
+            switch (age)
             {
-                case "low" : 
-                  return lijst.Where(p => p.Leeftijdscategorie < 16);
+                case "low":
+                    return lijst.Where(p => p.Leeftijdscategorie < 16);
 
-                case "middle" : 
-                  return lijst.Where(p => p.Leeftijdscategorie > 15 && p.Leeftijdscategorie < 19);
+                case "middle":
+                    return lijst.Where(p => p.Leeftijdscategorie > 15 && p.Leeftijdscategorie < 19);
 
-                default: 
-                  return lijst.Where(p => p.Leeftijdscategorie > 18);
+                default:
+                    return lijst.Where(p => p.Leeftijdscategorie > 18);
             }
 
         }
