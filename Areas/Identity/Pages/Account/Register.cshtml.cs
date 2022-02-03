@@ -58,7 +58,6 @@ namespace webapplication.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
             [Display(Name = "Specialiteit")]
             public string Specialiteit { get; set; }
 
@@ -86,7 +85,16 @@ namespace webapplication.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new Hulpverlener { VNaam = Input.VNaam, ANaam = Input.ANaam, UserName = Input.Email, Email = Input.Email, Specialiteit = Input.Specialiteit };
+                var user = new Gebruiker();
+
+                if (Input.Specialiteit != null)
+                {
+                    user = new Hulpverlener { VNaam = Input.VNaam, ANaam = Input.ANaam, UserName = Input.Email, Email = Input.Email, Specialiteit = Input.Specialiteit };
+                }
+                else
+                {
+                    user = new Moderator { VNaam = Input.VNaam, ANaam = Input.ANaam, UserName = Input.Email, Email = Input.Email };
+                }
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

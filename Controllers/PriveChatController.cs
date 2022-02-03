@@ -37,7 +37,8 @@ namespace webapplication.Controllers
                 {
                     if (item.Afzender == HulpverlenerId)
                     {
-                        if(_GebruikerContext.Users.Where(u => u.Id == item.Ontvanger).Any() == true){
+                        if (_GebruikerContext.Users.Where(u => u.Id == item.Ontvanger).Any() == true)
+                        {
                             var naam = _GebruikerContext.Users.Where(u => u.Id == item.Ontvanger).FirstOrDefault().Email;
                             namen.Add(naam);
                         }
@@ -70,7 +71,7 @@ namespace webapplication.Controllers
             {
                 ViewData["Client"] = true;
                 var ClientId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var idHulp = _GebruikerContext.Clients.Where(u => u.Id == ClientId).FirstOrDefault().hulpverlener.Id;
+                var idHulp = _GebruikerContext.Clients.Where(u => u.Id == ClientId).FirstOrDefault().hulpverlenerId;
                 ViewData["ClientHulpverlener"] = idHulp;
             }
             return View(await _ChatContext.PriveChat.ToListAsync());

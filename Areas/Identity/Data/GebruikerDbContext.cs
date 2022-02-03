@@ -25,8 +25,6 @@ namespace webapplication.Areas.Identity.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Client>()
-                .HasOne(c => c.hulpverlener).WithMany(h => h.Clienten);
         }
     }
 }

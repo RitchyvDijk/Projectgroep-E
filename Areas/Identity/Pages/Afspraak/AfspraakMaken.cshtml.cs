@@ -113,10 +113,9 @@ public class AfspraakMaken : PageModel
         returnUrl ??= Url.Content("~/");
         if (ModelState.IsValid)
         {
-            var hulpverlenerGekozen = _gebruikerContext.Hulpverleners.Single(h => h.Id.Equals(Input._Hulpverlener));
-            var user = new Client { VNaam = Input.VNaam, ANaam = Input.ANaam, UserName = Input.Email, GebJaar = Input.GebJaar, Email = Input.Email, Probleem = Input.Aandoening, hulpverlener = hulpverlenerGekozen };
+            var user = new Client { VNaam = Input.VNaam, ANaam = Input.ANaam, UserName = Input.Email, GebJaar = Input.GebJaar, Email = Input.Email, Probleem = Input.Aandoening, hulpverlenerId = Input._Hulpverlener };
             var result = await _userManager.CreateAsync(user, Input.Password);
-            await _gebruikerContext.afspraakModel.AddAsync(new Afspraak { client = user, DatumTijd = Input.DatumTijd, gekozenHulpverlener = hulpverlenerGekozen });
+            await _gebruikerContext.afspraakModel.AddAsync(new Afspraak { client = user, DatumTijd = Input.DatumTijd, gekozenHulpverlener = Input._Hulpverlener });
             await _gebruikerContext.SaveChangesAsync();
             if (result.Succeeded)
             {

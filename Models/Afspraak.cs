@@ -10,5 +10,5 @@ public class Afspraak
     public string naamOuder { get; set; }
     public string emailvanOuder { get; set; }
     public DateTime DatumTijd { get; set; }
-    public Hulpverlener gekozenHulpverlener { get; set; }
+    public string gekozenHulpverlener { get; set; }
 }

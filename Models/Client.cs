@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 public class Client : Gebruiker
 {
     public string Nicknaam { get; set; }
-    public Hulpverlener hulpverlener { get; set; }
+    public string hulpverlenerId { get; set; }
     public int GebJaar { get; set; }
     [Range(0, 999999999)]
     public int BSN { get; set; }
