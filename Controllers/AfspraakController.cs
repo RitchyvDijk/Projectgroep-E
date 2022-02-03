@@ -11,31 +11,76 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using webapplication.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace webapplication.Controllers
 {
+    [AllowAnonymous]
     public class AfspraakController : Controller
     {
         private readonly AfspraakDbContext _context;
         private readonly GebruikerDbContext identityDbContext;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<Gebruiker> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
-        public AfspraakController(AfspraakDbContext context, GebruikerDbContext identityDbContext, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AfspraakController(AfspraakDbContext context, GebruikerDbContext identityDbContext, UserManager<Gebruiker> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             this.identityDbContext = identityDbContext;
             this.userManager = userManager;
             this.roleManager = roleManager;
-        
-            
+
         }
 
-        //account maken voor een user
-        public IActionResult maakAcc()
+        private static string RandomString(int length)
         {
-            return View();
+            Random random = new Random();
+            const string pool = "ABCDEFGHIJKLVWXYZmnopqrstuvwxyz0123456789@!@#$%^*$#)(";
+            var builder = new System.Text.StringBuilder();
+
+            for (var i = 0; i < length; i++)
+            {
+                var c = pool[random.Next(0, pool.Length)];
+                builder.Append(c);
+            }
+
+            return builder.ToString();
         }
+        //account maken voor een user
+        // [AllowAnonymous]
+        // public async Task<IActionResult> maakAcc(int? id)
+        // {
+        //     if (id == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     var afspraakModel = await _context.afspraakModel
+        //         .FirstOrDefaultAsync(m => m.id == id);
+        //     if (afspraakModel == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //     //mail van gekozen gebruiker 
+        //     var mailVanGebruiker = _context.afspraakModel.Select(a => a.emailvanGebruiker);
+        //     var gebjaarVanGebruiker = _context.afspraakModel.Select(a => a.geboorteDatum);
+        //     var BSNvanGebruiker = _context.afspraakModel.Select(a => a.BSN);
+
+        //     string pw = RandomString(10);
+        //     System.Console.WriteLine(pw);
+
+        //     //var nieuweGebruiker = new Client { Nicknaam = mailVanGebruiker, hulpverlener ="", GebJaar = (int)gebjaarVanGebruiker, BSN = BSNvanGebruiker, Probleem = ""};
+        //     using (identityDbContext)
+        //     {
+        //        var result = await userManager.CreateAsync(nieuweGebruiker, pw);
+        //         if (!result.Succeeded)
+        //     throw new ApplicationException("Unable to create a user.");
+
+
+        //     return View(afspraakModel);
+        // }
+        //}
+
 
         // GET: Afspraak
         public async Task<IActionResult> Index()

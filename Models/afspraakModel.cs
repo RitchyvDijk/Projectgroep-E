@@ -10,23 +10,25 @@ public class afspraakModel
     public string voornaam { get; set; }
     [StringLength(25)]
     public string achternaam { get; set; }
-    //jongerDan16, gegevens van ouders niet required
-    [DisplayFormat(ConvertEmptyStringToNull = false)]
-    [Required(AllowEmptyStrings = true)]
-    public bool jongerDan16 { get; set; }
+    //jongerDan16, gegevens van ouders niet required ** overbodig
+    // [DisplayFormat(ConvertEmptyStringToNull = false)]
+    // [Required(AllowEmptyStrings = true)]
+    // public bool jongerDan16 { get; set; }
 
     //gegevens voor de API
     // [DataType(DataType.DateTime)]
     // [DisplayFormat(DataFormatString = "{0dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-    public DateTime geboorteDatum { get; set; }
+    public int geboorteDatum { get; set; }
     [StringLength(9)]
     public string BSN { get; set; }
 
     [DisplayFormat(ConvertEmptyStringToNull = false)]
     
+    //geeft warning, maar op deze manier zijn nulls ook toegestaan
     public string? naamOuder { get; set; }
     [DisplayFormat(ConvertEmptyStringToNull = false)]
     
+    //geeft warning, maar op deze manier zijn nulls ook toegestaan
     public string? emailvanOuder { get; set; }
     [StringLength(50)]
     public string emailvanGebruiker { get; set; }

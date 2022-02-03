@@ -3,14 +3,16 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace webapplication.Migrations.AfspraakDb
 {
     [DbContext(typeof(AfspraakDbContext))]
-    partial class AfspraakDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220203122617_fixGebJaarBSN")]
+    partial class fixGebJaarBSN
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
