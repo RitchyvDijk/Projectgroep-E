@@ -41,6 +41,12 @@
             @Html.DisplayFor(model => model.BSN)
         </dd>
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.naamOuder)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.naamOuder)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.emailvanOuder)
         </dt>
         <dd class = "col-sm-10">
@@ -51,6 +57,12 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.emailvanGebruiker)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.gekozenHulpverlener)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.gekozenHulpverlener)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.gekozenDatum)
@@ -67,6 +79,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a>
+    <a asp-action="maakAcc" asp-route-id="@Model.id">Maak een account</a>
     <a asp-action="Index">Back to List</a>
 </div>

@@ -28,10 +28,16 @@
                 @Html.DisplayNameFor(model => model.BSN)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.naamOuder)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.emailvanOuder)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.emailvanGebruiker)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.gekozenHulpverlener)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.gekozenDatum)
@@ -43,41 +49,48 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.voornaam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.achternaam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.jongerDan16)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.geboorteDatum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BSN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.emailvanOuder)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.emailvanGebruiker)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.gekozenDatum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.gekozenTijd)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.voornaam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.achternaam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.jongerDan16)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.geboorteDatum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BSN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.naamOuder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.emailvanOuder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.emailvanGebruiker)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.gekozenHulpverlener)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.gekozenDatum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.gekozenTijd)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

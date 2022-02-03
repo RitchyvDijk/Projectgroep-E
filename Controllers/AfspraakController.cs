@@ -2,20 +2,39 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using webapplication.Areas.Identity.Data;
 
 namespace webapplication.Controllers
 {
     public class AfspraakController : Controller
     {
         private readonly afspraakDbContext _context;
+        private readonly webapplicationIdentityDbContext identityDbContext;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public AfspraakController(afspraakDbContext context)
+        public AfspraakController(afspraakDbContext context, webapplicationIdentityDbContext identityDbContext, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+            this.identityDbContext = identityDbContext;
+            this.userManager = userManager;
+            this.roleManager = roleManager;
+        
+            
+        }
+
+        //account maken voor een user
+        public IActionResult maakAcc()
+        {
+            return View();
         }
 
         // GET: Afspraak
@@ -54,12 +73,14 @@ namespace webapplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,voornaam,achternaam,jongerDan16,geboorteDatum,BSN,emailvanOuder,emailvanGebruiker,gekozenDatum,gekozenTijd")] afspraakModel afspraakModel)
+        [AllowAnonymous]
+        public async Task<IActionResult> Create([Bind("id,voornaam,achternaam,jongerDan16,geboorteDatum,BSN,naamOuder,emailvanOuder,emailvanGebruiker,gekozenDatum,gekozenTijd,gekozenHulpverlener")] afspraakModel afspraakModel)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(afspraakModel);
                 await _context.SaveChangesAsync();
+                System.Console.WriteLine("Afspraak is succesvol gemaakt");
                 return RedirectToAction(nameof(Index));
             }
             return View(afspraakModel);
@@ -86,7 +107,7 @@ namespace webapplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,voornaam,achternaam,jongerDan16,geboorteDatum,BSN,emailvanOuder,emailvanGebruiker,gekozenDatum,gekozenTijd")] afspraakModel afspraakModel)
+        public async Task<IActionResult> Edit(int id, [Bind("id,voornaam,achternaam,jongerDan16,geboorteDatum,BSN,naamOuder,emailvanOuder,emailvanGebruiker,gekozenDatum,gekozenTijd,gekozenHulpverlener")] afspraakModel afspraakModel)
         {
             if (id != afspraakModel.id)
             {
