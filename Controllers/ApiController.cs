@@ -25,7 +25,7 @@ namespace week13.Controllers
         [HttpGet("{id}")]
         public ActionResult<IEnumerable<PriveChat>> GetPriveChat(string id)
         {
-            var ClientId = _GebruikerContext.Users.Where(u => u.UserName == id).FirstOrDefault().Id;
+            var ClientId = _GebruikerContext.Users.Where(u => u.Email == id).FirstOrDefault().Id;
             return _ChatContext.PriveChat.Where(p => p.Afzender == ClientId || p.Ontvanger == ClientId).ToList();
         }
 

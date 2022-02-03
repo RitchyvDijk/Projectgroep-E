@@ -25,13 +25,13 @@ namespace week13.Controllers
 
         // GET: api/PriveChat
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<GroupChat>>> GetGroupChats(int id)
+        public ActionResult<IEnumerable<GroupChat>> GetGroupChats(int id)
         {
-            var chat = await _context.GroupChats.Where(p => p.GroupId == id).ToListAsync();
+            var chat = _context.GroupChats.Where(p => p.GroupId == id).ToList();
             for (int i = 0; i < _context.GroupChats.Where(p => p.GroupId == id).Count(); i++)
             {
                 var naam = _dbContext.Users.Where(u => u.Id == chat[i].Afzender).FirstOrDefault();
-                chat[i].DateTime = naam.UserName;
+                chat[i].DateTime = naam.Email;
             }
             return chat;
         }
@@ -41,13 +41,13 @@ namespace week13.Controllers
         public ActionResult<IEnumerable<GroupChat>> PutGroupChats(int id)
         {
             var chat1 = _context.GroupChats.Where(p => p.Id == id).SingleOrDefault();
-            chat1.Meld = true;
+            chat1.Meld = 1;
             var groupId = chat1.GroupId;
             _context.SaveChanges();
             var chat = _context.GroupChats.Where(p => p.GroupId == groupId).ToList();
             for (int i = 0; i < _context.GroupChats.Where(p => p.GroupId == groupId).Count(); i++){
                 var naam = _dbContext.Users.Where(u => u.Id == chat[i].Afzender).FirstOrDefault();
-                chat[i].DateTime = naam.UserName;
+                chat[i].DateTime = naam.Email;
             }
             return chat;
         }
@@ -59,7 +59,7 @@ namespace week13.Controllers
             _context.GroupChats.Add(GroupChat);
             await _context.SaveChangesAsync();
             var naam = _dbContext.Users.Where(p => p.Id == GroupChat.Afzender).FirstOrDefault();
-            GroupChat.DateTime = naam.UserName;
+            GroupChat.DateTime = naam.Email;
 
             return CreatedAtAction("GetGroupChats", GroupChat);
         }
@@ -83,7 +83,7 @@ namespace week13.Controllers
              var chat = _context.GroupChats.Where(p => p.GroupId == groupId).ToList();
             for (int i = 0; i < _context.GroupChats.Where(p => p.GroupId == groupId).Count(); i++){
                 var naam = _dbContext.Users.Where(u => u.Id == chat[i].Afzender).FirstOrDefault();
-                chat[i].DateTime = naam.UserName;
+                chat[i].DateTime = naam.Email;
             }
             return chat;
         }
