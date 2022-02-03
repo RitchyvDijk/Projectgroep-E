@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using webapplication.Areas.Identity.Data;
 
 namespace webapplication
 {
     public class Program
     {
+
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -22,7 +24,7 @@ namespace webapplication
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-                
+
     }
-    
+
 }

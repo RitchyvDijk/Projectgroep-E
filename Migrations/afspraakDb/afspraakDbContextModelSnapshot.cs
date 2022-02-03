@@ -2,61 +2,97 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace webapplication.Migrations.afspraakDb
+namespace webapplication.Migrations.AfspraakDb
 {
-    [DbContext(typeof(afspraakDbContext))]
-    partial class afspraakDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(AfspraakDbContext))]
+    partial class AfspraakDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .UseIdentityColumns()
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
+
+            modelBuilder.Entity("HulpverlenerModel", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("NaamZorgverlener")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("beschikbareDagen")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("beschikbareTijden")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("HulpverlenerModel");
+                });
 
             modelBuilder.Entity("afspraakModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<string>("BSN")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("achternaam")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("emailvanGebruiker")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("emailvanOuder")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("geboorteDatum")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("gekozenDatum")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("gekozenHulpverlener")
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("gekozenHulpverlenerid")
+                        .HasColumnType("int");
 
                     b.Property<string>("gekozenTijd")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("jongerDan16")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("naamOuder")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("voornaam")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
+                    b.HasIndex("gekozenHulpverlenerid");
+
                     b.ToTable("afspraakModel");
+                });
+
+            modelBuilder.Entity("afspraakModel", b =>
+                {
+                    b.HasOne("HulpverlenerModel", "gekozenHulpverlener")
+                        .WithMany()
+                        .HasForeignKey("gekozenHulpverlenerid");
+
+                    b.Navigation("gekozenHulpverlener");
                 });
 #pragma warning restore 612, 618
         }

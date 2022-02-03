@@ -30,10 +30,10 @@ namespace webapplication
 
             services.AddRazorPages();
 
-            services.AddDbContext<afspraakDbContext>(options =>
-                    options.UseSqlite(Configuration.GetConnectionString("afspraakDbContext")));
-            services.AddDbContext<MyContext>(options =>
-                    options.UseSqlite(Configuration.GetConnectionString("MyContext")));
+            services.AddDbContext<AfspraakDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddDbContext<ChatDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Default")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,12 +67,6 @@ namespace webapplication
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-
         }
-        private void createRolesandUsers(webapplicationIdentityDbContext context)
-        {
-
-        }
-
     }
 }

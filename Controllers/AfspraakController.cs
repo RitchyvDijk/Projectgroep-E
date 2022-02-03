@@ -16,12 +16,12 @@ namespace webapplication.Controllers
 {
     public class AfspraakController : Controller
     {
-        private readonly afspraakDbContext _context;
-        private readonly webapplicationIdentityDbContext identityDbContext;
+        private readonly AfspraakDbContext _context;
+        private readonly GebruikerDbContext identityDbContext;
         private readonly UserManager<IdentityUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
-        public AfspraakController(afspraakDbContext context, webapplicationIdentityDbContext identityDbContext, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AfspraakController(AfspraakDbContext context, GebruikerDbContext identityDbContext, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             this.identityDbContext = identityDbContext;

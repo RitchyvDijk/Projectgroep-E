@@ -1,7 +1,12 @@
 @using Microsoft.AspNetCore.Identity
 @model IEnumerable<PriveChat>
-
+<<<<<<< HEAD
 @inject UserManager<IdentityUser> UserManager
+
+=======
+
+@inject UserManager<Gebruiker> UserManager
+>>>>>>> Ritchy
 @{
 	var lijst = Model;
 	Layout = "";
@@ -53,6 +58,22 @@
 			<a class="btn btn-secondary flex-fill d-flex justify-content-center" asp-area="" asp-controller="Group"
 				asp-action="Index">zelfhulp groepen</a>
 		</article>
+		@if(ViewData["HulpverlenerNamen"] != null) {
+				@foreach(var item in ViewBag.HulpverlenerNamen) {
+					<a onclick="getChat('@item')">
+						@item
+					</a><br/>
+				}
+					<article class="chat-messages p-4">
+			<p class="d-flex justify-content-center">Prive chat</p>
+			<section class="chatBox">
+			</section>
+			<section class="d-flex justify-content-between fixed-bottom m-5">
+				<input class="form-control m-1 chatInput" type="text" name="">
+				<button class="btn btn-success m-1 submit" onclick="createChat()">verstuur</button>
+			</section>
+		</article>
+		} else {
 		<article class="chat-messages p-4">
 			<p class="d-flex justify-content-center">Prive chat</p>
 			<section class="chatBox">
@@ -77,18 +98,108 @@
 			</section>
 			<section class="d-flex justify-content-between fixed-bottom m-5">
 				<input class="form-control m-1 chatInput" type="text" name="">
-				<button class="btn btn-success m-1" onclick="createChat()">verstuur</button>
+				<button class="btn btn-success m-1 submit" onclick="createChat()">verstuur</button>
 			</section>
 		</article>
+		}
 	</div>
+	<input type="hidden" class="loggedInUser" value="@UserManager.GetUserId(User)">
 
 	<script>
 		var list = [];
 		var setup = false;
 		var ontvang = "f61864df-f3b9-4de5-a8e4-5aa372423dd0";
+<<<<<<< HEAD
 			if("@UserManager.GetUserId(User)" == "f61864df-f3b9-4de5-a8e4-5aa372423dd0"){
 				ontvang = "f455ac26-e1d6-4449-bb5c-fa88c913b520";
 			}
+
+		function getChat(id) {
+			var loggedInUser = document.querySelector(".loggedInUser").value;
+			window.history.pushState("", "", '/PriveChat');
+			selected = id;
+			fetch("api/api/" + id, {
+				method: "GET"
+			}).then(r => {
+				if (r.status != 200) {
+					throw "Status: " + r.status;
+				} else {
+					return r.json();
+				}
+			}).then(item => {
+				var headDiv = document.querySelector('.chatBox');
+				headDiv.innerHTML = "";
+				for (let i = 0; i < item.length; i++) {
+					if (item[i].ontvanger == loggedInUser)
+					{
+							var div = document.createElement("div");
+							div.classList.add("chat-message-left");
+							div.classList.add("pb-4");
+							var element = document.createElement("div");
+							element.classList.add("m-2");
+							element.innerHTML = '<i class="fa fa-user"></i>';
+							var paragraph = document.createElement("p");
+							paragraph.classList.add('m-2');
+							paragraph.innerHTML = item[i].body;
+							div.appendChild(element);
+							div.appendChild(paragraph);
+
+							headDiv.appendChild(div);
+							document.querySelector(".submit").setAttribute('onclick','createChatHulpverlener("' + item[i].afzender + '")');
+					}
+					else if (item[i].afzender == loggedInUser)
+					{
+							var div = document.createElement("div");
+							div.classList.add("chat-message-right");
+							div.classList.add("pb-4");
+							var paragraph = document.createElement("p");
+							paragraph.classList.add('m-2');
+							paragraph.innerHTML = item[i].body;
+							div.appendChild(paragraph);
+
+							headDiv.appendChild(div);
+							document.querySelector(".submit").setAttribute('onclick','createChatHulpverlener("' + item[i].ontvanger + '")');
+					}
+				}
+			}).catch(r => alert("Er is een fout op getreden " + r));
+		}
+
+		function createChatHulpverlener(id) {
+			var currentdate = new Date();
+			var datetime = currentdate.getDay() + "/" + currentdate.getMonth()
+				+ "/" + currentdate.getFullYear() + " "
+				+ currentdate.getHours() + ":"
+				+ currentdate.getMinutes() + ":" + currentdate.getSeconds();
+			var input = document.querySelector(".chatInput").value;
+			fetch("api/api/", {
+				method: "POST",
+				body: JSON.stringify({ "DateTime": datetime, "Ontvanger": id, "Afzender": "@UserManager.GetUserId(User)", "Body": input }),
+				headers: { "content-type": "application/json" }
+			}).then(r => {
+				if (r.status != 201) {
+					throw "Status: " + r.status;
+				} else {
+					return r.json();
+				}
+			}).then(j => {
+				var headDiv = document.createElement("div");
+
+				headDiv.classList.add("chat-message-right");
+				headDiv.classList.add("pb-4");
+				headDiv.innerHTML = j.body;
+
+				document.querySelector(".chatBox").appendChild(headDiv);
+				document.querySelector(".chatInput").value = "";
+				list.push(j);
+			}).catch(r => alert("Er is een fout op getreden " + r));
+		}
+
+
+=======
+		if ("@UserManager.GetUserId(User)" == "f61864df-f3b9-4de5-a8e4-5aa372423dd0") {
+			ontvang = "f455ac26-e1d6-4449-bb5c-fa88c913b520";
+		}
+>>>>>>> Ritchy
 		function createChat() {
 			var currentdate = new Date();
 			var datetime = "Last Sync: " + currentdate.getDay() + "/" + currentdate.getMonth()
@@ -108,6 +219,7 @@
 				}
 			}).then(j => {
 				var headDiv = document.createElement("div");
+
 				headDiv.classList.add("chat-message-right");
 				headDiv.classList.add("pb-4");
 				headDiv.innerHTML = j.body;
