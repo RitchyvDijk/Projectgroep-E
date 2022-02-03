@@ -14,9 +14,9 @@ public class RoleController : Controller
 {
     RoleManager<IdentityRole> roleManager;
     //dependency injection
-    webapplicationIdentityDbContext dbContext;
-    UserManager<IdentityUser> userManager;
-    public RoleController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager, webapplicationIdentityDbContext dbContext)
+    GebruikerDbContext dbContext;
+    UserManager<Gebruiker> userManager;
+    public RoleController(RoleManager<IdentityRole> roleManager, UserManager<Gebruiker> userManager, GebruikerDbContext dbContext)
     {
         this.roleManager = roleManager;
         this.dbContext = dbContext;

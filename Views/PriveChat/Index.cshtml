@@ -1,7 +1,12 @@
 @using Microsoft.AspNetCore.Identity
 @model IEnumerable<PriveChat>
+<<<<<<< HEAD
 @inject UserManager<IdentityUser> UserManager
 
+=======
+
+@inject UserManager<Gebruiker> UserManager
+>>>>>>> Ritchy
 @{
 	var lijst = Model;
 	Layout = "";
@@ -104,6 +109,7 @@
 		var list = [];
 		var setup = false;
 		var ontvang = "f61864df-f3b9-4de5-a8e4-5aa372423dd0";
+<<<<<<< HEAD
 			if("@UserManager.GetUserId(User)" == "f61864df-f3b9-4de5-a8e4-5aa372423dd0"){
 				ontvang = "f455ac26-e1d6-4449-bb5c-fa88c913b520";
 			}
@@ -189,6 +195,11 @@
 		}
 
 
+=======
+		if ("@UserManager.GetUserId(User)" == "f61864df-f3b9-4de5-a8e4-5aa372423dd0") {
+			ontvang = "f455ac26-e1d6-4449-bb5c-fa88c913b520";
+		}
+>>>>>>> Ritchy
 		function createChat() {
 			var currentdate = new Date();
 			var datetime = "Last Sync: " + currentdate.getDay() + "/" + currentdate.getMonth()

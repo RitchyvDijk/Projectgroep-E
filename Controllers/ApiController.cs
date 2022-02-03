@@ -13,27 +13,27 @@ namespace week13.Controllers
     [ApiController]
     public class ApiController : ControllerBase
     {
-        private readonly MyContext _context;
-        private readonly webapplicationIdentityDbContext _dbContext;
+        private readonly ChatDbContext _ChatContext;
+        private readonly GebruikerDbContext _GebruikerContext;
 
-        public ApiController(MyContext context, webapplicationIdentityDbContext dbContext)
+        public ApiController(ChatDbContext ChatContext, GebruikerDbContext GebruikerContext)
         {
-            _context = context;
-            _dbContext = dbContext;
+            _ChatContext = ChatContext;
+            _GebruikerContext = GebruikerContext;
         }
-        
+
         [HttpGet("{id}")]
         public ActionResult<IEnumerable<PriveChat>> GetPriveChat(string id)
         {
-            var ClientId = _dbContext.Users.Where(u => u.UserName == id).FirstOrDefault().Id;
-            return _context.PriveChat.Where(p => p.Afzender == ClientId || p.Ontvanger == ClientId).ToList();
+            var ClientId = _GebruikerContext.Users.Where(u => u.UserName == id).FirstOrDefault().Id;
+            return _ChatContext.PriveChat.Where(p => p.Afzender == ClientId || p.Ontvanger == ClientId).ToList();
         }
 
-         // GET: api/PriveChat
+        // GET: api/PriveChat
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PriveChat>>> GetPriveChat()
         {
-            return await _context.PriveChat.ToListAsync();
+            return await _ChatContext.PriveChat.ToListAsync();
         }
 
         // PUT: api/PriveChat/5
@@ -45,11 +45,11 @@ namespace week13.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(priveChat).State = EntityState.Modified;
+            _ChatContext.Entry(priveChat).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _ChatContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -70,8 +70,8 @@ namespace week13.Controllers
         [HttpPost]
         public async Task<ActionResult<PriveChat>> PostPriveChat(PriveChat priveChat)
         {
-            _context.PriveChat.Add(priveChat);
-            await _context.SaveChangesAsync();
+            _ChatContext.PriveChat.Add(priveChat);
+            await _ChatContext.SaveChangesAsync();
 
             return CreatedAtAction("GetPriveChat", priveChat);
         }
@@ -80,23 +80,23 @@ namespace week13.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePriveChat(int id)
         {
-            var priveChat = await _context.PriveChat.FindAsync(id);
+            var priveChat = await _ChatContext.PriveChat.FindAsync(id);
 
             if (priveChat == null)
             {
                 return NotFound();
             }
 
-            _context.PriveChat.Remove(priveChat);
+            _ChatContext.PriveChat.Remove(priveChat);
 
-            await _context.SaveChangesAsync();
+            await _ChatContext.SaveChangesAsync();
 
             return NoContent();
         }
 
         private bool PriveChatExists(int id)
         {
-            return _context.PriveChat.Any(e => e.Id == id);
+            return _ChatContext.PriveChat.Any(e => e.Id == id);
         }
     }
 }

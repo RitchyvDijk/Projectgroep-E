@@ -11,9 +11,9 @@ namespace webapplication.Controllers
 {
     public class AfspraakController : Controller
     {
-        private readonly afspraakDbContext _context;
+        private readonly AfspraakDbContext _context;
 
-        public AfspraakController(afspraakDbContext context)
+        public AfspraakController(AfspraakDbContext context)
         {
             _context = context;
         }

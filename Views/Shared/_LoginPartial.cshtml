@@ -1,7 +1,7 @@
 @using Microsoft.AspNetCore.Identity
 
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<Gebruiker> SignInManager
+@inject UserManager<Gebruiker> UserManager
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
@@ -16,8 +16,7 @@
             <a class="nav-link text-dark" asp-area="" asp-controller="PriveChat" asp-action="Index">Chat</a>
         </li>
         <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index"
-            title="Manage">Hello @UserManager.GetUserName(User)!</a>
+            <a class="nav-link btn-link text-dark disabled">Hallo @UserManager.GetUserName(User)!</a>
         </li>
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
@@ -31,6 +30,10 @@
         <li class="nav-item">
             <a class="btn btn-outline-primary mx-1" id="login" asp-area="Identity" asp-page="/Account/Login"
             role="button">Inloggen</a>
+        </li>
+        <li class="nav-item">
+            <a class="btn btn-outline-primary mx-1" id="login" asp-area="Identity" asp-page="/Account/Register"
+            role="button">Register</a>
         </li>
         <li class="nav-item">
             <a class="btn btn-primary mx-1" id="register" asp-area="Identity" asp-controller="Afspraak" asp-action="Create"

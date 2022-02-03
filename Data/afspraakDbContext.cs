@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-    public class afspraakDbContext : DbContext
+public class AfspraakDbContext : DbContext
+{
+    public DbSet<afspraakModel> afspraakModel { get; set; }
+
+    public AfspraakDbContext(DbContextOptions<AfspraakDbContext> options)
+        : base(options)
     {
-        public afspraakDbContext (DbContextOptions<afspraakDbContext> options)
-            : base(options)
-        {
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite("Data Source=afspraak.db");
-        public DbSet<afspraakModel> afspraakModel { get; set; }
     }
+
+}

@@ -19,24 +19,21 @@ namespace webapplication.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<Gebruiker> _signInManager;
+        private readonly UserManager<Gebruiker> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<Gebruiker> userManager,
+            SignInManager<Gebruiker> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender,
-            RoleManager<IdentityRole> roleManager)
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            _roleManager = roleManager;
         }
 
         [BindProperty]
@@ -49,26 +46,36 @@ namespace webapplication.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [Display(Name = "Voornaam")]
+            public string VNaam { get; set; }
+
+            [Required]
+            [Display(Name = "Achternaam")]
+            public string ANaam { get; set; }
+
+            [Required]
             [EmailAddress]
-            [Display(Name = "E-mailadres")]
+            [Display(Name = "Email")]
             public string Email { get; set; }
+
+            [Required]
+            [Display(Name = "Specialiteit")]
+            public string Specialiteit { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Wachtwoord")]
+            [Display(Name = "Password")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Bevestig wachtwoord")]
-            [Compare("Password", ErrorMessage = "Wachtwoord en Bevestig wachtwoord komt niet overeen")]
+            [Display(Name = "Confirm password")]
+            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-            public string Name { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            ViewData["roles"] = _roleManager.Roles.ToList();
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -76,18 +83,14 @@ namespace webapplication.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-            var role = _roleManager.FindByIdAsync(Input.Name).Result;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new Hulpverlener { VNaam = Input.VNaam, ANaam = Input.ANaam, UserName = Input.Email, Email = Input.Email, Specialiteit = Input.Specialiteit };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-                    //await _userManager.AddToRoleAsync(user, role.Name);
-                    //hierdoor word de user een Client als die registeert
-                    await _userManager.AddToRoleAsync(user, "Client");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -115,9 +118,7 @@ namespace webapplication.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-            ViewData["roles"] = _roleManager.Roles.ToList(); 
 
-            // _roleManager.Roles.Where(r => r.Name == "Client").Select(r => r.Name);
             // If we got this far, something failed, redisplay form
             return Page();
         }

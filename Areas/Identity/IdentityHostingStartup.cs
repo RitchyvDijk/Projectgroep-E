@@ -15,29 +15,30 @@ namespace webapplication.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.ConfigureServices((context, services) => {
-                services.AddDbContext<webapplicationIdentityDbContext>(options =>
-                    options.UseSqlite(
-                        context.Configuration.GetConnectionString("webapplicationIdentityDbContextConnection")));
+            builder.ConfigureServices((context, services) =>
+            {
+                services.AddDbContext<GebruikerDbContext>(options =>
+                    options.UseSqlServer(context.Configuration.GetConnectionString("Default")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddRoles<IdentityRole>()
-                    .AddEntityFrameworkStores<webapplicationIdentityDbContext>();
-                
+                services.AddIdentity<Gebruiker, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddEntityFrameworkStores<GebruikerDbContext>()
+                    .AddDefaultTokenProviders()
+                    .AddDefaultUI();
+
                 services.AddRazorPages();
 
                 services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser()
-        .Build();
-        options.AddPolicy("readpolicy",  
-                    builder => builder.RequireRole("Admin", "Hulpverlener", "Client", "Moderator"));  
-                options.AddPolicy("writepolicy",  
-                    builder => builder.RequireRole("Admin"));
-});
+                {
+                    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .Build();
+                    options.AddPolicy("readpolicy",
+                                builder => builder.RequireRole("Admin", "Hulpverlener", "Client", "Moderator"));
+                    options.AddPolicy("writepolicy",
+                        builder => builder.RequireRole("Admin"));
+                });
             });
-            
+
         }
     }
 }

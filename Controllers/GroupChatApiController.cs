@@ -13,22 +13,23 @@ namespace week13.Controllers
     [ApiController]
     public class GroupChatApiController : ControllerBase
     {
-        private readonly MyContext _context;
-        private readonly webapplicationIdentityDbContext _dbContext;
+        private readonly ChatDbContext _context;
+        private readonly GebruikerDbContext _dbContext;
 
 
-        public GroupChatApiController(MyContext context, webapplicationIdentityDbContext dbContext)
+        public GroupChatApiController(ChatDbContext context, GebruikerDbContext dbContext)
         {
             _context = context;
             _dbContext = dbContext;
         }
-        
+
         // GET: api/PriveChat
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<GroupChat>>> GetGroupChats(int id)
         {
             var chat = await _context.GroupChats.Where(p => p.GroupId == id).ToListAsync();
-            for (int i = 0; i < _context.GroupChats.Where(p => p.GroupId == id).Count(); i++){
+            for (int i = 0; i < _context.GroupChats.Where(p => p.GroupId == id).Count(); i++)
+            {
                 var naam = _dbContext.Users.Where(u => u.Id == chat[i].Afzender).FirstOrDefault();
                 chat[i].DateTime = naam.UserName;
             }
@@ -58,7 +59,7 @@ namespace week13.Controllers
             _context.GroupChats.Add(GroupChat);
             await _context.SaveChangesAsync();
             var naam = _dbContext.Users.Where(p => p.Id == GroupChat.Afzender).FirstOrDefault();
-                GroupChat.DateTime = naam.UserName;
+            GroupChat.DateTime = naam.UserName;
 
             return CreatedAtAction("GetGroupChats", GroupChat);
         }
