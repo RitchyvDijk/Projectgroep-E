@@ -6,9 +6,35 @@ using webapplication.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using webapplication.Controllers;
+using Moq;
+using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 
 namespace tests
 {
+    public class mockUserManager : UserManager<Gebruiker>
+    {
+        public mockUserManager() 
+        : base (new Mock<IUserStore<Gebruiker>>().Object,
+        new Mock<IOptions<IdentityOptions>>().Object,
+        new Mock<IPasswordHasher<Gebruiker>>().Object,
+        new Mock<IEnumerable<IUserValidator<Gebruiker>>>().Object,
+        new Mock<IEnumerable<IPasswordValidator<Gebruiker>>>().Object,
+        new Mock<ILookupNormalizer>().Object,
+        new Mock<IdentityErrorDescriber>().Object,
+        new Mock<IServiceProvider>().Object,
+        new Mock<ILogger<UserManager<Gebruiker>>>().Object
+        )
+        
+        { }
+    
+    public override Task<IdentityResult> CreateAsync(Gebruiker user, string password)
+    {
+        return Task.FromResult(IdentityResult.Success);
+    }
+
+    }
     public class UnitTest1
     {
         ChatDbContext ChatDbcontext;
@@ -18,33 +44,34 @@ namespace tests
         RoleManager<IdentityRole> roleManager;
         GebruikerDbContext GebruikerContext;
 
-        // [Fact]
-        // public async Task Test1AsyncAsync()
-        // {
-        //     string jongerdan12 = "< 12 jaar";
-        //     string tussen1216 = "12 tot 16 jaar";
-        //     string ouderdan16 = "> 16 jaar";
+        [Fact]
+        public async Task Test1AsyncAsync()
+        {
+            mockUserManager mockUserManager = new mockUserManager();
+            string jongerdan12 = "< 12 jaar";
+            string tussen1216 = "12 tot 16 jaar";
+            string ouderdan16 = "> 16 jaar";
 
-        //     //string Nicknaam, Hulpverlener hulpverlener, int GebJaar, int BSN, string Probleem 
-        //     int JTjonger12 = 2015;
-        //     int JTouder16 = 2000;
-        //     int JTt1216 = 2008;
+            //string Nicknaam, Hulpverlener hulpverlener, int GebJaar, int BSN, string Probleem 
+            int JTjonger12 = 2015;
+            int JTouder16 = 2000;
+            int JTt1216 = 2008;
 
-        //     string pw = "Test@01";
+            string pw = "Test@01";
            
-        //     var jongeUser = new Client { GebJaar = JTjonger12 };
-        //     await userManager.CreateAsync(jongeUser, pw);
+            var jongeUser = new Client { GebJaar = JTjonger12 };
+            await mockUserManager.CreateAsync(jongeUser, pw);
 
-        //     var middelUser = new Client { GebJaar = JTt1216 };
-        //     await userManager.CreateAsync(middelUser, pw);
+            var middelUser = new Client { GebJaar = JTt1216 };
+            await mockUserManager.CreateAsync(middelUser, pw);
 
-        //     var OudeUser = new Client { GebJaar = JTouder16 };
-        //     await userManager.CreateAsync(OudeUser, pw);
+            var OudeUser = new Client { GebJaar = JTouder16 };
+            await mockUserManager.CreateAsync(OudeUser, pw);
 
-        //     Assert.Matches(jongeUser.LeeftijdsGroep(), jongerdan12);
-        //     Assert.Matches(middelUser.LeeftijdsGroep(), tussen1216);
-        //     Assert.Matches(OudeUser.LeeftijdsGroep(), ouderdan16);
-        // }
+            Assert.Matches(jongeUser.LeeftijdsGroep(), jongerdan12);
+            Assert.Matches(middelUser.LeeftijdsGroep(), tussen1216);
+            Assert.Matches(OudeUser.LeeftijdsGroep(), ouderdan16);
+        }
         [Fact]
         public void TestoverzichtAanmeldingenReq18()
         {
