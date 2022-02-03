@@ -82,7 +82,7 @@ namespace week13.Controllers
             var groupId = GroupChat.GroupId;
              var chat = _context.GroupChats.Where(p => p.GroupId == groupId).ToList();
             for (int i = 0; i < _context.GroupChats.Where(p => p.GroupId == groupId).Count(); i++){
-                var naam = _dbContext.Users.Where(u => u.Id == chat[i].Afzender).FirstOrDefault();
+                var naam = _dbContext.Clients.Where(u => u.Id == chat[i].Afzender).FirstOrDefault();
                 chat[i].DateTime = naam.Email;
             }
             return chat;

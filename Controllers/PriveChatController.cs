@@ -37,15 +37,15 @@ namespace webapplication.Controllers
                 {
                     if (item.Afzender == HulpverlenerId)
                     {
-                        if (_GebruikerContext.Users.Where(u => u.Id == item.Ontvanger).Any() == true)
+                        if (_GebruikerContext.Clients.Where(u => u.Id == item.Ontvanger).Any() == true)
                         {
-                            var naam = _GebruikerContext.Users.Where(u => u.Id == item.Ontvanger).FirstOrDefault().Email;
+                            var naam = _GebruikerContext.Clients.Where(u => u.Id == item.Ontvanger).FirstOrDefault().Email;
                             namen.Add(naam);
                         }
                     }
                     else
                     {
-                        var naam = _GebruikerContext.Users.Where(u => u.Id == item.Afzender).FirstOrDefault().Email;
+                        var naam = _GebruikerContext.Clients.Where(u => u.Id == item.Afzender).FirstOrDefault().Email;
                         namen.Add(naam);
                     }
                 }
@@ -63,14 +63,18 @@ namespace webapplication.Controllers
                     else
                         index--;
                 }
-                ViewData["HulpverlenerNamen"] = true;
+                ViewData["HulpverlenerNamen"] = "true";
                 ViewBag.HulpverlenerNamen = namen;
                 return View(_ChatContext.PriveChat.Where(p => p.Afzender == HulpverlenerId || p.Ontvanger == HulpverlenerId).ToList());
-            }
+            } else {
+            if (User.IsInRole("Client"))
+            {
+                ViewData["Client"] = true;
                 var ClientId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var idHulp = _GebruikerContext.Clients.Where(u => u.Id == ClientId).FirstOrDefault().hulpverlenerId;
                 ViewData["ClientHulpverlener"] = idHulp;
-
+            }
+            }
             return View(await _ChatContext.PriveChat.ToListAsync());
         }
 
