@@ -33,17 +33,18 @@ namespace webapplication.Controllers
             {
                 var HulpverlenerId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var namen = new List<string>();
-                foreach (var item in await _ChatContext.PriveChat.Where(p => p.Afzender.Equals(HulpverlenerId) || p.Ontvanger.Equals(HulpverlenerId)).ToListAsync())
+                foreach (var item in await _ChatContext.PriveChat.Where(p => p.Afzender == HulpverlenerId || p.Ontvanger == HulpverlenerId).ToListAsync())
                 {
                     if (item.Afzender == HulpverlenerId)
                     {
-                        var naam = _GebruikerContext.Users.Where(u => u.Id == item.Ontvanger).FirstOrDefault().UserName;
-                        namen.Add(naam);
-
+                        if(_GebruikerContext.Users.Where(u => u.Id == item.Ontvanger).Any() == true){
+                            var naam = _GebruikerContext.Users.Where(u => u.Id == item.Ontvanger).FirstOrDefault().Email;
+                            namen.Add(naam);
+                        }
                     }
                     else
                     {
-                        var naam = _GebruikerContext.Users.Where(u => u.Id == item.Afzender).FirstOrDefault().UserName;
+                        var naam = _GebruikerContext.Users.Where(u => u.Id == item.Afzender).FirstOrDefault().Email;
                         namen.Add(naam);
                     }
                 }

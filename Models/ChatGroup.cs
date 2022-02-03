@@ -13,6 +13,6 @@ public class GroupChat {
     public string Body {get; set;}
     [Required(ErrorMessage = "Geen groep gevonden!")]
     public int GroupId {get; set;}
-    public bool Meld {get; set;}
+    public int Meld {get; set;}
 
 }
