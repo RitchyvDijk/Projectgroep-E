@@ -14,6 +14,7 @@ namespace webapplication.Areas.Identity.Data
         public DbSet<Client> Clients { get; set; }
         public DbSet<Hulpverlener> Hulpverleners { get; set; }
         public DbSet<Moderator> Moderators { get; set; }
+        public DbSet<Afspraak> afspraakModel { get; set; }
 
         public GebruikerDbContext(DbContextOptions<GebruikerDbContext> options)
             : base(options)

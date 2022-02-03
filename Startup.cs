@@ -30,7 +30,7 @@ namespace webapplication
 
             services.AddRazorPages();
 
-            services.AddDbContext<AfspraakDbContext>(options =>
+            services.AddDbContext<GebruikerDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddDbContext<ChatDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Default")));

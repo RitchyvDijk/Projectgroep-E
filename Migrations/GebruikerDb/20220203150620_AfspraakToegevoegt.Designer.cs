@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webapplication.Areas.Identity.Data;
 
 namespace webapplication.Migrations.GebruikerDb
 {
     [DbContext(typeof(GebruikerDbContext))]
-    partial class GebruikerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220203150620_AfspraakToegevoegt")]
+    partial class AfspraakToegevoegt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,6 +39,9 @@ namespace webapplication.Migrations.GebruikerDb
 
                     b.Property<string>("gekozenHulpverlenerId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("gekozenTijd")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("naamOuder")
                         .HasColumnType("nvarchar(max)");
@@ -263,6 +268,7 @@ namespace webapplication.Migrations.GebruikerDb
                     b.HasBaseType("Gebruiker");
 
                     b.Property<int>("BSN")
+                        .HasMaxLength(9)
                         .HasColumnType("int");
 
                     b.Property<int>("GebJaar")

@@ -1,0 +1,81 @@
+@page
+@model AfspraakMaken
+@{
+    ViewData["Title"] = "Registeren";
+}
+
+<style>
+    .jumbotron {
+        height: 50vh;
+    }
+
+    .jumbotron::before {
+        background-color: #853989;
+    }
+</style>
+
+<partial name="_Jumbotron"></partial>
+<div class="container-fluid position-relative px-0" style="top: -5rem;">
+    <div class="bg-light shadow-lg mx-sm-5 px-5 pb-5">
+        <div class="col-12 text-center">
+            <h3 class="display-5 py-4">@ViewData["Title"]</h3>
+            <p class="text-muted">Maak een afspraak.</p>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mx-auto">
+                <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Input.VNaam"></label>
+                        <input asp-for="Input.VNaam" class="form-control" />
+                        <span asp-validation-for="Input.VNaam" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.ANaam"></label>
+                        <input asp-for="Input.ANaam" class="form-control" />
+                        <span asp-validation-for="Input.ANaam" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Email"></label>
+                        <input asp-for="Input.Email" class="form-control" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.GebJaar"></label>
+                        <input asp-for="Input.GebJaar" class="form-control" />
+                        <span asp-validation-for="Input.GebJaar" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.BSN"></label>
+                        <input asp-for="Input.BSN" class="form-control" />
+                        <span asp-validation-for="Input.BSN" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Aandoening"></label>
+                        <input asp-for="Input.Aandoening" class="form-control" />
+                        <span asp-validation-for="Input.Aandoening" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.DatumTijd" class="control-label">Datum en tijd van afspraak</label>
+                        <input asp-for="Input.DatumTijd" class="form-control" value="2022-01-16-00:00" min="2022-01-16"
+                            max="2022-12-31" required />
+                        <span asp-validation-for="Input.DatumTijd" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input._Hulpverlener"></label>
+                        <select class="form-control" asp-for="Input._Hulpverlener" asp-items="@Model.HulpverlenerList">
+                            <option>Kies een hulpverlener</option>
+                        </select>
+                        <span asp-validation-for="Input._Hulpverlener" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Maak afspraak</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

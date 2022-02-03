@@ -6,7 +6,7 @@ public class Client : Gebruiker
     public string Nicknaam { get; set; }
     public Hulpverlener hulpverlener { get; set; }
     public int GebJaar { get; set; }
-    [MaxLength(9)]
+    [Range(0, 999999999)]
     public int BSN { get; set; }
     public string Probleem { get; set; }
 

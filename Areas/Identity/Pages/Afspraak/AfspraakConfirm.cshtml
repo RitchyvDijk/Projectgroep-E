@@ -1,0 +1,26 @@
+@page
+@model AfspraakConfirmModel
+@{
+    ViewData["Title"] = "Email bevestigt";
+}
+
+<style>
+    .jumbotron {
+        height: 50vh;
+    }
+
+    .jumbotron::before {
+        background-color: #213852;
+    }
+</style>
+
+<partial name="_Jumbotron"></partial>
+<div class="container-fluid position-relative px-0" style="top: -5rem;">
+    <div class="bg-light shadow-lg mx-sm-5 px-5 pb-5">
+        <div class="col-12 text-center">
+            <h3 class="display-5 py-4">@ViewData["Title"]</h3>
+            <a class="btn btn-outline-primary mx-1" id="login" asp-area="Identity" asp-page="/Account/Login"
+                role="button">Inloggen</a>
+        </div>
+    </div>
+</div>

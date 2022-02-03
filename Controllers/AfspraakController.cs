@@ -18,12 +18,12 @@ namespace webapplication.Controllers
     [AllowAnonymous]
     public class AfspraakController : Controller
     {
-        private readonly AfspraakDbContext _context;
+        private readonly GebruikerDbContext _context;
         private readonly GebruikerDbContext identityDbContext;
         private readonly UserManager<Gebruiker> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
-        public AfspraakController(AfspraakDbContext context, GebruikerDbContext identityDbContext, UserManager<Gebruiker> userManager, RoleManager<IdentityRole> roleManager)
+        public AfspraakController(GebruikerDbContext context, GebruikerDbContext identityDbContext, UserManager<Gebruiker> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             this.identityDbContext = identityDbContext;
@@ -61,7 +61,7 @@ namespace webapplication.Controllers
         //     {
         //         return NotFound();
         //     }
-        //     //mail van gekozen gebruiker 
+        //     //mail van gekozen gebruiker
         //     var mailVanGebruiker = _context.afspraakModel.Select(a => a.emailvanGebruiker);
         //     var gebjaarVanGebruiker = _context.afspraakModel.Select(a => a.geboorteDatum);
         //     var BSNvanGebruiker = _context.afspraakModel.Select(a => a.BSN);
@@ -119,7 +119,7 @@ namespace webapplication.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public async Task<IActionResult> Create([Bind("id,voornaam,achternaam,jongerDan16,geboorteDatum,BSN,naamOuder,emailvanOuder,emailvanGebruiker,gekozenDatum,gekozenTijd,gekozenHulpverlener")] afspraakModel afspraakModel)
+        public async Task<IActionResult> Create([Bind("id,voornaam,achternaam,jongerDan16,geboorteDatum,BSN,naamOuder,emailvanOuder,emailvanGebruiker,gekozenDatum,gekozenTijd,gekozenHulpverlener")] Afspraak afspraakModel)
         {
             if (ModelState.IsValid)
             {
@@ -152,7 +152,7 @@ namespace webapplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,voornaam,achternaam,jongerDan16,geboorteDatum,BSN,naamOuder,emailvanOuder,emailvanGebruiker,gekozenDatum,gekozenTijd,gekozenHulpverlener")] afspraakModel afspraakModel)
+        public async Task<IActionResult> Edit(int id, [Bind("id,voornaam,achternaam,jongerDan16,geboorteDatum,BSN,naamOuder,emailvanOuder,emailvanGebruiker,gekozenDatum,gekozenTijd,gekozenHulpverlener")] Afspraak afspraakModel)
         {
             if (id != afspraakModel.id)
             {
