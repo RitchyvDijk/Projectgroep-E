@@ -10,8 +10,8 @@ using webapplication.Areas.Identity.Data;
 namespace webapplication.Migrations.GebruikerDb
 {
     [DbContext(typeof(GebruikerDbContext))]
-    [Migration("20220203150620_AfspraakToegevoegt")]
-    partial class AfspraakToegevoegt
+    [Migration("20220203210514_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,20 +28,17 @@ namespace webapplication.Migrations.GebruikerDb
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<DateTime>("DatumTijd")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("clientId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("emailvanOuder")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("gekozenDatumTijd")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("gekozenHulpverlenerId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("gekozenTijd")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("naamOuder")
                         .HasColumnType("nvarchar(max)");
@@ -268,7 +265,6 @@ namespace webapplication.Migrations.GebruikerDb
                     b.HasBaseType("Gebruiker");
 
                     b.Property<int>("BSN")
-                        .HasMaxLength(9)
                         .HasColumnType("int");
 
                     b.Property<int>("GebJaar")

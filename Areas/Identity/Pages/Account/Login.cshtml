@@ -54,29 +54,6 @@
                     </form>
                 </section>
             </div>
-            <div class="col-md-4 mx-auto">
-                <section>
-                    <form id="code" method="post">
-                        <h3 class="display-5 py-4">Inloggen met code</h3>
-                        <hr />
-                        <div asp-validation-summary="All" class="text-danger"></div>
-                        <div class="form-group">
-                            <label for="codeInvoer">Code</label>
-                            <input type="text" id="codeInvoer" class="form-control" />
-                            <span asp-validation-for="Input.Email" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Log in</button>
-                        </div>
-                        <div class="form-group">
-                            <p>
-                                Geen code? <a id="forgot-password" asp-page="./ForgotPassword">Maak een afspraak.</a>
-                            </p>
-                        </div>
-                    </form>
-
-                </section>
-            </div>
         </div>
     </div>
 </div>

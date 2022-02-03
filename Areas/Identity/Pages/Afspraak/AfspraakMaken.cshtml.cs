@@ -88,6 +88,17 @@ public class AfspraakMaken : PageModel
         [Display(Name = "Datum en tijd van afspraak")]
         public DateTime DatumTijd { get; set; }
 
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Wachtwoord")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Bevestig wachtwoord")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
     }
 
     public void OnGetAsync(string returnUrl = null)
@@ -104,8 +115,8 @@ public class AfspraakMaken : PageModel
         {
             var hulpverlenerGekozen = _gebruikerContext.Hulpverleners.Single(h => h.Id.Equals(Input._Hulpverlener));
             var user = new Client { VNaam = Input.VNaam, ANaam = Input.ANaam, UserName = Input.Email, GebJaar = Input.GebJaar, Email = Input.Email, Probleem = Input.Aandoening, hulpverlener = hulpverlenerGekozen };
-            var result = await _userManager.CreateAsync(user);
-            await _gebruikerContext.afspraakModel.AddAsync(new Afspraak { client = user, gekozenDatumTijd = Input.DatumTijd, gekozenHulpverlener = hulpverlenerGekozen });
+            var result = await _userManager.CreateAsync(user, Input.Password);
+            await _gebruikerContext.afspraakModel.AddAsync(new Afspraak { client = user, DatumTijd = Input.DatumTijd, gekozenHulpverlener = hulpverlenerGekozen });
             await _gebruikerContext.SaveChangesAsync();
             if (result.Succeeded)
             {

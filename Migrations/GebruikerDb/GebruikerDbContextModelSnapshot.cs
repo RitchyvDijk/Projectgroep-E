@@ -26,14 +26,14 @@ namespace webapplication.Migrations.GebruikerDb
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<DateTime>("DatumTijd")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("clientId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("emailvanOuder")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("gekozenDatumTijd")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("gekozenHulpverlenerId")
                         .HasColumnType("nvarchar(450)");

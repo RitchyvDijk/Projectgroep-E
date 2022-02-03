@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace webapplication.Migrations.GebruikerDb
 {
-    public partial class AfspraakToegevoegt : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,8 +16,7 @@ namespace webapplication.Migrations.GebruikerDb
                     clientId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     naamOuder = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     emailvanOuder = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    gekozenDatumTijd = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    gekozenTijd = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DatumTijd = table.Column<DateTime>(type: "datetime2", nullable: false),
                     gekozenHulpverlenerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -37,6 +36,8 @@ namespace webapplication.Migrations.GebruikerDb
                         onDelete: ReferentialAction.Restrict);
                 });
 
+
+
             migrationBuilder.CreateIndex(
                 name: "IX_afspraakModel_clientId",
                 table: "afspraakModel",
@@ -46,6 +47,7 @@ namespace webapplication.Migrations.GebruikerDb
                 name: "IX_afspraakModel_gekozenHulpverlenerId",
                 table: "afspraakModel",
                 column: "gekozenHulpverlenerId");
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
