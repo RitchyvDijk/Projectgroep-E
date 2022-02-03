@@ -193,7 +193,7 @@
 			var input = document.querySelector(".chatInput").value;
 			fetch("api/api/", {
 				method: "POST",
-				body: JSON.stringify({ "DateTime": datetime, "Ontvanger": '@ViewData["clientHulp"]', "Afzender": "@UserManager.GetUserId(User)", "Body": input }),
+				body: JSON.stringify({ "DateTime": datetime, "Ontvanger": '@ViewData["ClientHulpverlener"]', "Afzender": "@UserManager.GetUserId(User)", "Body": input }),
 				headers: { "content-type": "application/json" }
 			}).then(r => {
 				if (r.status != 201) {

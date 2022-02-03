@@ -67,13 +67,10 @@ namespace webapplication.Controllers
                 ViewBag.HulpverlenerNamen = namen;
                 return View(_ChatContext.PriveChat.Where(p => p.Afzender == HulpverlenerId || p.Ontvanger == HulpverlenerId).ToList());
             }
-            if (User.IsInRole("Client"))
-            {
-                ViewData["Client"] = true;
                 var ClientId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var idHulp = _GebruikerContext.Clients.Where(u => u.Id == ClientId).FirstOrDefault().hulpverlenerId;
                 ViewData["ClientHulpverlener"] = idHulp;
-            }
+
             return View(await _ChatContext.PriveChat.ToListAsync());
         }
 
